@@ -1,0 +1,176 @@
+[
+    {
+        "question1": "What is your favorite color?",
+        "question2": "What is the favorite color of %?",
+        "answers": [
+            "red",
+            "blue",
+            "green",
+            "orange",
+            "pink",
+            "brown",
+            "purple",
+            "magenta",
+            "cyan",
+            "white",
+            "black",
+            "gray",
+            "(other color)"
+        ]
+    },
+    {
+        "question1": "What is your birth month?",
+        "question2": "What is the birth month of %?",
+        "answers": [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"
+        ]
+    },
+    {
+        "question1": "What is favorite pet?",
+        "question2": "What is the favorite pet of %?",
+        "answers": [
+            "cat",
+            "dog",
+            "hamster",
+            "bird",
+            "fish",
+            "rabbit",
+            "chameleon",
+            "guinea pig",
+            "turtle",
+            "squirrel",
+            "(other pet)"
+        ]
+    },
+    {
+        "question1": "What is your favorite video game genre?",
+        "question2": "What is the favorite video game genre of %?",
+        "answers": [
+            "action",
+            "adventure",
+            "shooter",
+            "RPG",
+            "simulation",
+            "arcade",
+            "puzzle",
+            "casual",
+            "platformer",
+            "strategy",
+            "(other genre)"
+        ]
+    },
+    {
+        "question1": "What is your favorite movie genre?",
+        "question2": "What is the favorite movie genre of %?",
+        "answers": [
+            "cartoons",
+            "fantasy",
+            "action/adventure",
+            "comedy",
+            "science",
+            "psychology",
+            "history",
+            "romance",
+            "(other genre)"
+        ]
+    },
+    {
+        "question1": "What is your favorite game type?",
+        "question2": "What is the favorite game type of %?",
+        "answers": [
+            "video game",
+            "sport game",
+            "board game",
+            "word-based",
+            "puzzle",
+            "(other type)"
+        ]
+    },
+    {
+        "question1": "What is your favorite book genre?",
+        "question2": "What is the favorite book genre of %?",
+        "answers": [
+            "fantasy",
+            "action/adventure",
+            "comedy",
+            "biography",
+            "science",
+            "psychology",
+            "history",
+            "romance",
+            "(other genre)"
+        ]
+    },
+    {
+        "question1": "What is your favorite music genre?",
+        "question2": "What is the favorite music genre of %?",
+        "answers": [
+            "rock",
+            "classical",
+            "jazz",
+            "pop",
+            "country",
+            "hip-hop",
+            "instrumental",
+            "blues",
+            "Dance & Electronic",
+            "(other genre)"
+        ]
+    },
+    {
+        "question1": "What instrument do you play?",
+        "question2": "What instrument does % play?",
+        "answers": [
+            "guitar",
+            "violin",
+            "cello",
+            "ukulele",
+            "piano",
+            "percussion",
+            "wind (e.g. saxophone, clarinet, flute)",
+            "(other instrument)"
+        ]
+    },
+    {
+        "question1": "What is the activity you do the most in the free time?",
+        "question2": "What is the activity % does the most in the free time?",
+        "answers": [
+            "sleep",
+            "read",
+            "draw",
+            "sing",
+            "write",
+            "watch movies/videos",
+            "go for a walk",
+            "hang out with people",
+            "play games",
+            "exercise",
+            "cook",
+            "talk",
+            "take pictures/videos",
+            "learn",
+            "(other activity)"
+        ]
+    },
+    {
+        "question1": "What is your favorite terrain type?",
+        "question2": "What is the favorite terrain type of %?",
+        "answers": [
+            "mountain",
+            "hill",
+            "plain",
+            "sea/ocean"
+        ]
+    }
+]
