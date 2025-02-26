@@ -1,26 +1,28 @@
 [
     {
-        "question1": "What is your favorite color?",
-        "question2": "What is the favorite color of %?",
+        "question": "What is your favorite color?",
+        "question_test": "What is the favorite color of %?",
+        "type": "multiple",
         "answers": [
-            "red",
-            "blue",
-            "green",
-            "orange",
-            "pink",
-            "brown",
-            "purple",
-            "magenta",
-            "cyan",
-            "white",
-            "black",
-            "gray",
-            "(other color)"
+            "Red",
+            "Blue",
+            "Green",
+            "Orange",
+            "Pink",
+            "Brown",
+            "Purple",
+            "Magenta",
+            "Cyan",
+            "White",
+            "Black",
+            "Gray",
+            "(Other color)"
         ]
     },
     {
-        "question1": "What is your birth month?",
-        "question2": "What is the birth month of %?",
+        "question": "What is your birth month?",
+        "question_test": "What is the birth month of %?",
+        "type": "single",
         "answers": [
             "January",
             "February",
@@ -37,140 +39,433 @@
         ]
     },
     {
-        "question1": "What is favorite pet?",
-        "question2": "What is the favorite pet of %?",
+        "question": "What is favorite pet?",
+        "question_test": "What is the favorite pet of %?",
+        "type": "multiple",
         "answers": [
-            "cat",
-            "dog",
-            "hamster",
-            "bird",
-            "fish",
-            "rabbit",
-            "chameleon",
-            "guinea pig",
-            "turtle",
-            "squirrel",
-            "(other pet)"
+            "Cat",
+            "Dog",
+            "Hamster",
+            "Bird",
+            "Fish",
+            "Rabbit",
+            "Chameleon",
+            "Guinea pig",
+            "Turtle",
+            "Squirrel",
+            "(Other pet)"
         ]
     },
     {
-        "question1": "What is your favorite video game genre?",
-        "question2": "What is the favorite video game genre of %?",
+        "question": "What is your favorite video game genre?",
+        "question_test": "What is the favorite video game genre of %?",
+        "type": "multiple",
         "answers": [
-            "action",
-            "adventure",
-            "shooter",
+            "Action",
+            "Adventure",
+            "Shooter",
             "RPG",
-            "simulation",
-            "arcade",
-            "puzzle",
-            "casual",
-            "platformer",
-            "strategy",
-            "(other genre)"
+            "Simulation",
+            "Arcade",
+            "Puzzle",
+            "Casual",
+            "Platformer",
+            "Strategy",
+            "(Other genre)"
         ]
     },
     {
-        "question1": "What is your favorite movie genre?",
-        "question2": "What is the favorite movie genre of %?",
+        "question": "What is your favorite movie genre?",
+        "question_test": "What is the favorite movie genre of %?",
+        "type": "multiple",
         "answers": [
-            "cartoons",
-            "fantasy",
-            "action/adventure",
-            "comedy",
-            "science",
-            "psychology",
-            "history",
-            "romance",
-            "(other genre)"
+            "Cartoons",
+            "Fantasy",
+            "Action/Adventure",
+            "Comedy",
+            "Science",
+            "Psychology",
+            "History",
+            "Romance",
+            "(Other genre)"
         ]
     },
     {
-        "question1": "What is your favorite game type?",
-        "question2": "What is the favorite game type of %?",
+        "question": "What is your favorite game type?",
+        "question_test": "What is the favorite game type of %?",
+        "type": "multiple",
         "answers": [
-            "video game",
-            "sport game",
-            "board game",
-            "word-based",
-            "puzzle",
-            "(other type)"
+            "Video game",
+            "Sport game",
+            "Board game",
+            "Word-based",
+            "Puzzle",
+            "(Other type)"
         ]
     },
     {
-        "question1": "What is your favorite book genre?",
-        "question2": "What is the favorite book genre of %?",
+        "question": "What is your favorite book genre?",
+        "question_test": "What is the favorite book genre of %?",
+        "type": "multiple",
         "answers": [
-            "fantasy",
-            "action/adventure",
-            "comedy",
-            "biography",
-            "science",
-            "psychology",
-            "history",
-            "romance",
-            "(other genre)"
+            "Fantasy",
+            "Action/Adventure",
+            "Comedy",
+            "Biography",
+            "Science",
+            "Psychology",
+            "History",
+            "Romance",
+            "(Other genre)"
         ]
     },
     {
-        "question1": "What is your favorite music genre?",
-        "question2": "What is the favorite music genre of %?",
+        "question": "What is your favorite music genre?",
+        "question_test": "What is the favorite music genre of %?",
+        "type": "multiple",
         "answers": [
-            "rock",
-            "classical",
-            "jazz",
-            "pop",
-            "country",
-            "hip-hop",
-            "instrumental",
-            "blues",
+            "Rock",
+            "Classical",
+            "Jazz",
+            "Pop",
+            "Country",
+            "Hip-hop",
+            "Instrumental",
+            "Blues",
             "Dance & Electronic",
-            "(other genre)"
+            "(Other genre)"
         ]
     },
     {
-        "question1": "What instrument do you play?",
-        "question2": "What instrument does % play?",
+        "question": "What instrument do you play?",
+        "question_test": "What instrument does % play?",
+        "type": "multiple",
         "answers": [
-            "guitar",
-            "violin",
-            "cello",
-            "ukulele",
-            "piano",
-            "percussion",
-            "wind (e.g. saxophone, clarinet, flute)",
-            "(other instrument)"
+            "Guitar",
+            "Violin",
+            "Cello",
+            "Ukulele",
+            "Piano",
+            "Percussion",
+            "Wind (e.g. saxophone, clarinet, flute)",
+            "(Other instrument)"
         ]
     },
     {
-        "question1": "What is the activity you do the most in the free time?",
-        "question2": "What is the activity % does the most in the free time?",
+        "question": "What is the activity you do the most in the free time?",
+        "question_test": "What is the activity % does the most in the free time?",
+        "type": "multiple",
         "answers": [
-            "sleep",
-            "read",
-            "draw",
-            "sing",
-            "write",
-            "watch movies/videos",
-            "go for a walk",
-            "hang out with people",
-            "play games",
-            "exercise",
-            "cook",
-            "talk",
-            "take pictures/videos",
-            "learn",
-            "(other activity)"
+            "Sleep",
+            "Read",
+            "Draw",
+            "Sing",
+            "Write",
+            "Watch movies/videos",
+            "Go for a walk",
+            "Hang out with people",
+            "Play games",
+            "Exercise",
+            "Cook",
+            "Talk",
+            "Take pictures/videos",
+            "Learn",
+            "(Other activity)"
         ]
     },
     {
-        "question1": "What is your favorite terrain type?",
-        "question2": "What is the favorite terrain type of %?",
+        "question": "What is your favorite terrain type?",
+        "question_test": "What is the favorite terrain type of %?",
+        "type": "single",
         "answers": [
-            "mountain",
-            "hill",
-            "plain",
-            "sea/ocean"
+            "Mountain",
+            "Hill",
+            "Plain",
+            "Sea/Ocean"
+        ]
+    },
+    {
+        "question": "What is your favorite type of dessert?",
+        "question_test": "What is the favorite type of dessert of %?",
+        "type": "single",
+        "answers": [
+            "Salty",
+            "Sweety"
+        ]
+    },
+    {
+        "question": "What is your favorite drink?",
+        "question_test": "What is the favorite drink of %?",
+        "type": "multiple",
+        "answers": [
+            "Water",
+            "Juice (soda)",
+            "Juice (natural)",
+            "Tea",
+            "Coffee",
+            "Smoothie",
+            "Ginger beer",
+            "(Other drink)"
+        ]
+    },
+    {
+        "question": "What is your favorite season?",
+        "question_test": "What is the favorite season of %?",
+        "type": "double",
+        "answers": [
+            "Spring",
+            "Summer",
+            "Fall",
+            "Winter"
+        ]
+    },
+    {
+        "question": "What operating system do you use on the phone?",
+        "question_test": "What operating system does % use on the phone?",
+        "type": "single",
+        "answers": [
+            "Android",
+            "iOS",
+            "Windows",
+            "Linux",
+            "(Other operating system)"
+        ]
+    },
+    {
+        "question": "What operating system do you use the most on the computer?",
+        "question_test": "What operating system does % use the most on the computer?",
+        "type": "single",
+        "answers": [
+            "Linux",
+            "Windows",
+            "macOS",
+            "BSD",
+            "(Other operating system)"
+        ]
+    },
+    {
+        "question": "Which game console would you rather play on?",
+        "question_test": "Which game console would % rather play on?",
+        "type": "single",
+        "answers": [
+            "PlayStation 4",
+            "PlayStation 5",
+            "Xbox One",
+            "Nintendo Switch",
+            "(Other game console)"
+        ]
+    },
+    {
+        "question": "Which is your favorite moment of the day?",
+        "question_test": "Which is the favorite moment of the day of %?",
+        "type": "single",
+        "answers": [
+            "Morning",
+            "Afternoon",
+            "Evening",
+            "Night"
+        ]
+    },
+    {
+        "question": "What is your temper?",
+        "question_test": "What is the temper of %?",
+        "type": "double",
+        "answers": [
+            "Sanguine",
+            "Phlegmatic",
+            "Choleric",
+            "Melancholic"
+        ]
+    },
+    {
+        "question": "What is your love language?",
+        "question_test": "What is the love language of %?",
+        "type": "double",
+        "answers": [
+            "Words of affirmation",
+            "Acts of service",
+            "Receiving gifts",
+            "Quality time",
+            "Physical touch"
+        ]
+    },
+    {
+        "question": "Do you sleep before 12 PM?",
+        "question_test": "Does % sleep before 12 PM?",
+        "type": "single",
+        "answers": [
+            "Always",
+            "Sometimes",
+            "Never"
+        ]
+    },
+    {
+        "question": "How would you like to travel by?",
+        "question_test": "How would % like to travel by?",
+        "type": "multiple",
+        "answers": [
+            "Foot",
+            "Bicycle",
+            "Scooter",
+            "Motorcycle",
+            "Car",
+            "Bus",
+            "Subway",
+            "Train",
+            "(Other)"
+        ]
+    },
+    {
+        "question": "What is your favorite weather?",
+        "question_test": "What is the favorite weather of %?",
+        "type": "multiple",
+        "answers": [
+            "Sunny",
+            "Cloudy",
+            "Rainy",
+            "Stormy",
+            "Snowy",
+            "Foggy",
+            "Windy",
+            "(Other weather)"
+        ]
+    },
+    {
+        "question": "Have you ever cheated at school exams?",
+        "question_test": "Has % ever cheated at school exams?",
+        "type": "single",
+        "answers": [
+            "Yes",
+            "No"
+        ]
+    },
+    {
+        "question": "Which school would you rather attend?",
+        "question_test": "Which school would % rather attend?",
+        "type": "single",
+        "answers": [
+            "Public school",
+            "Private school",
+            "Home school"
+        ]
+    },
+    {
+        "question": "Do you agree with generative artificial intelligence being a norm?",
+        "question_test": "Does % agree with generative artificial intelligence being a norm?",
+        "type": "single",
+        "answers": [
+            "Yes",
+            "Maybe",
+            "No"
+        ]
+    },
+    {
+        "question": "What shopping would you rather choose?",
+        "question_test": "What shopping would % rather choose?",
+        "type": "single",
+        "answers": [
+            "Online shopping",
+            "Onsite shopping"
+        ]
+    },
+    {
+        "question": "Caution: cereal before milk OR milk before cereal?",
+        "question_test": "What % would do: cereal before milk OR milk before cereal?",
+        "type": "single",
+        "answers": [
+            "Cereal before milk (right)",
+            "Milk before cereal (wrong)"
+        ]
+    },
+    {
+        "question": "Are you left-handed or right-handed?",
+        "question_test": "Is % left-handed or right-handed?",
+        "type": "single",
+        "answers": [
+            "Left-handed",
+            "Right-handed"
+        ]
+    },
+    {
+        "question": "Are you a morning bird or a night owl?",
+        "question_test": "Is % a morning bird or a night owl?",
+        "type": "single",
+        "answers": [
+            "Morning bird",
+            "Night owl"
+        ]
+    },
+    {
+        "question": "Which generation are you?",
+        "question_test": "Which generation is %?",
+        "type": "single",
+        "answers": [
+            "Generation X (boomer)",
+            "Generation Y (millennial)",
+            "Generation Z",
+            "Generation Alpha"
+        ]
+    },
+    {
+        "question": "Are you rather a cat person or a dog person?",
+        "question_test": "Is % rather a cat person or a dog person?",
+        "type": "single",
+        "answers": [
+            "Cat person",
+            "Dog person"
+        ]
+    },
+    {
+        "question": "How many siblings do you have?",
+        "question_test": "How many siblings does % have?",
+        "type": "single",
+        "answers": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5+"
+        ]
+    },
+    {
+        "question": "What social media platform do you use the most?",
+        "question_test": "What social media platform does % use the most?",
+        "type": "single",
+        "answers": [
+            "Facebook",
+            "Instagram",
+            "X (Twitter)",
+            "TikTok",
+            "Snapchat",
+            "Discord",
+            "Reddit",
+            "YouTube",
+            "WhatsApp",
+            "(Other social media platform)"
+        ]
+    },
+    {
+        "question": "Which is your computer knowledge level?",
+        "question_test": "Which is the computer knowledge level of %?",
+        "type": "single",
+        "answers": [
+            "Caveman",
+            "Noob",
+            "Casual user",
+            "Experienced user",
+            "System administrator",
+            "Operating system engineer"
+        ]
+    },
+    {
+        "question": "Which personality are you?",
+        "question_test": "Which personality is %?",
+        "type": "single",
+        "answers": [
+            "Extrovert",
+            "Introvert",
+            "Ambivert"
         ]
     }
 ]

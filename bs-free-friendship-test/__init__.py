@@ -32,6 +32,10 @@ def create_app():
 def _initialize_application(application: fl.Flask):
     from . import database
     from . import commands
+    from . import create
+    from . import test
 
     application.teardown_appcontext(database.close_database)
     application.cli.add_command(commands.command_initialize_database)
+    application.register_blueprint(create.create_blueprint())
+    application.register_blueprint(test.create_blueprint())
