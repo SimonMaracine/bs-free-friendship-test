@@ -37,5 +37,5 @@ def _initialize_application(application: fl.Flask):
 
     application.teardown_appcontext(database.close_database)
     application.cli.add_command(commands.command_initialize_database)
-    application.register_blueprint(create.create_blueprint())
-    application.register_blueprint(test.create_blueprint())
+    application.register_blueprint(create.g_blueprint)
+    application.register_blueprint(test.g_blueprint)
