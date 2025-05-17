@@ -3,6 +3,9 @@ import sys
 
 import flask as fl
 
+# https://flask.palletsprojects.com/en/stable/tutorial/views/
+#https://sqlite.org/lang.html
+
 
 def create_app():
     application = fl.Flask(__name__, instance_relative_config=True)
