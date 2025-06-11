@@ -25,6 +25,13 @@ def initialize_database():
         db.executescript(file.read().decode("utf8"))
 
 
+def show_database():
+    db = get_database()
+
+    with fl.current_app.open_resource("scripts/show.sql") as file:
+        print(db.executescript(file.read().decode("utf8")).fetchall())
+
+
 def _create_connection(database_path: str) -> sqlite3.Connection:
     connection = sqlite3.connect(
         database_path,

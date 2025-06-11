@@ -3,8 +3,11 @@ import sys
 
 import flask as fl
 
+from . import question
+from . import glob
+
 # https://flask.palletsprojects.com/en/stable/tutorial/views/
-#https://sqlite.org/lang.html
+# https://sqlite.org/lang.html
 
 
 def create_app():
@@ -25,6 +28,9 @@ def create_app():
     # Ensure the instance directory is available
     os.makedirs(application.instance_path, exist_ok=True)
 
+    with application.open_resource("questions.json") as file:
+        glob.QUESTIONS = question.load_questions(file)
+
     @application.route("/hello")
     def hello():
         return "Hello, world!"
@@ -40,5 +46,6 @@ def _initialize_application(application: fl.Flask):
 
     application.teardown_appcontext(database.close_database)
     application.cli.add_command(commands.command_initialize_database)
+    application.cli.add_command(commands.command_show_database)
     application.register_blueprint(create.g_blueprint)
     application.register_blueprint(test.g_blueprint)

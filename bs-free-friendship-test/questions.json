@@ -2,7 +2,7 @@
     {
         "question": "What is your favorite color?",
         "question_test": "What is the favorite color of %?",
-        "type": "multiple",
+        "single_type": false,
         "answers": [
             "Red",
             "Blue",
@@ -22,7 +22,7 @@
     {
         "question": "What is your birth month?",
         "question_test": "What is the birth month of %?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "January",
             "February",
@@ -41,7 +41,7 @@
     {
         "question": "What is favorite pet?",
         "question_test": "What is the favorite pet of %?",
-        "type": "multiple",
+        "single_type": false,
         "answers": [
             "Cat",
             "Dog",
@@ -59,7 +59,7 @@
     {
         "question": "What is your favorite video game genre?",
         "question_test": "What is the favorite video game genre of %?",
-        "type": "multiple",
+        "single_type": false,
         "answers": [
             "Action",
             "Adventure",
@@ -77,7 +77,7 @@
     {
         "question": "What is your favorite movie genre?",
         "question_test": "What is the favorite movie genre of %?",
-        "type": "multiple",
+        "single_type": false,
         "answers": [
             "Cartoons",
             "Fantasy",
@@ -93,7 +93,7 @@
     {
         "question": "What is your favorite game type?",
         "question_test": "What is the favorite game type of %?",
-        "type": "multiple",
+        "single_type": false,
         "answers": [
             "Video game",
             "Sport game",
@@ -106,7 +106,7 @@
     {
         "question": "What is your favorite book genre?",
         "question_test": "What is the favorite book genre of %?",
-        "type": "multiple",
+        "single_type": false,
         "answers": [
             "Fantasy",
             "Action/Adventure",
@@ -122,7 +122,7 @@
     {
         "question": "What is your favorite music genre?",
         "question_test": "What is the favorite music genre of %?",
-        "type": "multiple",
+        "single_type": false,
         "answers": [
             "Rock",
             "Classical",
@@ -139,7 +139,7 @@
     {
         "question": "What instrument do you play?",
         "question_test": "What instrument does % play?",
-        "type": "multiple",
+        "single_type": false,
         "answers": [
             "Guitar",
             "Violin",
@@ -154,7 +154,7 @@
     {
         "question": "What is the activity you do the most in the free time?",
         "question_test": "What is the activity % does the most in the free time?",
-        "type": "multiple",
+        "single_type": false,
         "answers": [
             "Sleep",
             "Read",
@@ -176,7 +176,7 @@
     {
         "question": "What is your favorite terrain type?",
         "question_test": "What is the favorite terrain type of %?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "Mountain",
             "Hill",
@@ -187,7 +187,7 @@
     {
         "question": "What is your favorite type of dessert?",
         "question_test": "What is the favorite type of dessert of %?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "Salty",
             "Sweety"
@@ -196,7 +196,7 @@
     {
         "question": "What is your favorite drink?",
         "question_test": "What is the favorite drink of %?",
-        "type": "multiple",
+        "single_type": false,
         "answers": [
             "Water",
             "Juice (soda)",
@@ -211,7 +211,7 @@
     {
         "question": "What is your favorite season?",
         "question_test": "What is the favorite season of %?",
-        "type": "double",
+        "single_type": "double",
         "answers": [
             "Spring",
             "Summer",
@@ -222,7 +222,7 @@
     {
         "question": "What operating system do you use on the phone?",
         "question_test": "What operating system does % use on the phone?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "Android",
             "iOS",
@@ -234,7 +234,7 @@
     {
         "question": "What operating system do you use the most on the computer?",
         "question_test": "What operating system does % use the most on the computer?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "Linux",
             "Windows",
@@ -246,7 +246,7 @@
     {
         "question": "Which game console would you rather play on?",
         "question_test": "Which game console would % rather play on?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "PlayStation 4",
             "PlayStation 5",
@@ -258,7 +258,7 @@
     {
         "question": "Which is your favorite moment of the day?",
         "question_test": "Which is the favorite moment of the day of %?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "Morning",
             "Afternoon",
@@ -269,7 +269,7 @@
     {
         "question": "What is your temper?",
         "question_test": "What is the temper of %?",
-        "type": "double",
+        "single_type": "double",
         "answers": [
             "Sanguine",
             "Phlegmatic",
@@ -280,7 +280,7 @@
     {
         "question": "What is your love language?",
         "question_test": "What is the love language of %?",
-        "type": "double",
+        "single_type": "double",
         "answers": [
             "Words of affirmation",
             "Acts of service",
@@ -292,7 +292,7 @@
     {
         "question": "Do you sleep before 12 PM?",
         "question_test": "Does % sleep before 12 PM?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "Always",
             "Sometimes",
@@ -302,7 +302,7 @@
     {
         "question": "How would you like to travel by?",
         "question_test": "How would % like to travel by?",
-        "type": "multiple",
+        "single_type": false,
         "answers": [
             "Foot",
             "Bicycle",
@@ -318,7 +318,7 @@
     {
         "question": "What is your favorite weather?",
         "question_test": "What is the favorite weather of %?",
-        "type": "multiple",
+        "single_type": false,
         "answers": [
             "Sunny",
             "Cloudy",
@@ -333,7 +333,7 @@
     {
         "question": "Have you ever cheated at school exams?",
         "question_test": "Has % ever cheated at school exams?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "Yes",
             "No"
@@ -342,7 +342,7 @@
     {
         "question": "Which school would you rather attend?",
         "question_test": "Which school would % rather attend?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "Public school",
             "Private school",
@@ -352,7 +352,7 @@
     {
         "question": "Do you agree with generative artificial intelligence being a norm?",
         "question_test": "Does % agree with generative artificial intelligence being a norm?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "Yes",
             "Maybe",
@@ -362,7 +362,7 @@
     {
         "question": "What shopping would you rather choose?",
         "question_test": "What shopping would % rather choose?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "Online shopping",
             "Onsite shopping"
@@ -371,7 +371,7 @@
     {
         "question": "Caution: cereal before milk OR milk before cereal?",
         "question_test": "What % would do: cereal before milk OR milk before cereal?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "Cereal before milk (right)",
             "Milk before cereal (wrong)"
@@ -380,7 +380,7 @@
     {
         "question": "Are you left-handed or right-handed?",
         "question_test": "Is % left-handed or right-handed?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "Left-handed",
             "Right-handed"
@@ -389,7 +389,7 @@
     {
         "question": "Are you a morning bird or a night owl?",
         "question_test": "Is % a morning bird or a night owl?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "Morning bird",
             "Night owl"
@@ -398,7 +398,7 @@
     {
         "question": "Which generation are you?",
         "question_test": "Which generation is %?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "Generation X (boomer)",
             "Generation Y (millennial)",
@@ -409,7 +409,7 @@
     {
         "question": "Are you rather a cat person or a dog person?",
         "question_test": "Is % rather a cat person or a dog person?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "Cat person",
             "Dog person"
@@ -418,7 +418,7 @@
     {
         "question": "How many siblings do you have?",
         "question_test": "How many siblings does % have?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "0",
             "1",
@@ -431,7 +431,7 @@
     {
         "question": "What social media platform do you use the most?",
         "question_test": "What social media platform does % use the most?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "Facebook",
             "Instagram",
@@ -448,7 +448,7 @@
     {
         "question": "Which is your computer knowledge level?",
         "question_test": "Which is the computer knowledge level of %?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "Caveman",
             "Noob",
@@ -461,7 +461,7 @@
     {
         "question": "Which personality are you?",
         "question_test": "Which personality is %?",
-        "type": "single",
+        "single_type": true,
         "answers": [
             "Extrovert",
             "Introvert",
