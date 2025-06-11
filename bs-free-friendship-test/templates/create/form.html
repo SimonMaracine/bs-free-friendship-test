@@ -2,17 +2,25 @@
 
 {% block content %}
     <p>Your name: {{ name }}</p>
+    <p>Questions: {{ question_count }}/20</p>
 
     <form method="post">
         <p>{{ question.question }}</p>
 
         {% for answer in question.answers %}
-            <label for="answer{{ loop.index0 }}">{{ answer }}</label>
-            <input type="{{ 'radio' if question.single_type else 'checkbox' }}" name="answer{{ loop.index0 }}">
+            <input
+                type="{{ 'radio' if question.single_type else 'checkbox' }}"
+                id="{{ 'answer' ~ loop.index0 }}"
+                name="{{ 'answer' if question.single_type else 'answer' ~ loop.index0 }}"
+                value="{{ answer }}"
+            >
+            <label for="{{ 'answer' ~ loop.index0 }}">{{ answer }}</label>
         {% endfor %}
 
         <br>
 
-        <input type="submit" value="Next Question">
+        <input type="hidden" name="index" value="{{ question_index }}">
+        <input type="submit" value="Submit Answer">
+        <input type="button" value="Skip Question" onclick="window.location.reload()">
     </form>
 {% endblock %}

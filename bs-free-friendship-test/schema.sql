@@ -9,6 +9,7 @@ CREATE TABLE form (
 
 CREATE TABLE question (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    index_ INTEGER NOT NULL,
     question TEXT NOT NULL,
     question_test TEXT NOT NULL,
     single_type BOOLEAN NOT NULL,

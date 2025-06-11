@@ -1,47 +1,94 @@
 import uuid
+import random
 
 import flask as fl
 
 from . import glob
 from . import database
 
+
 g_blueprint = fl.Blueprint("create", __name__, url_prefix="/create")
+
+
+def _pick_random_question_index(question_indices: list[int]) -> int:
+    all_indices = set(range(0, len(glob.QUESTIONS) - 1))
+    remaining_indices = all_indices - set(question_indices)
+
+    return random.choice(list(remaining_indices))
 
 
 def _create_new_form(name: str) -> str | None:
     db = database.get_database()
-    new_id = uuid.uuid4()
+    new_id = str(uuid.uuid4().int)
 
     try:
         db.execute(
             "INSERT INTO form (id, name_) VALUES (?, ?)",
-            (str(new_id.int), name)
+            (new_id, name)
         )
         db.commit()
     except db.Error as err:
-        fl.flash(f"Could not insert into form: {err}")
+        fl.flash(f"Could not insert into table: {err}")
         return None
 
-    return str(new_id.int)
+    return new_id
 
 
 def _get_form_name(form_id: str) -> str | None:
     db = database.get_database()
 
     try:
-        form = db.execute(
+        result = db.execute(
             "SELECT * FROM form WHERE id = ?",
             (form_id,)
         ).fetchone()
     except db.Error as err:
-        fl.flash(f"Could not select from form: {err}")
+        fl.flash(f"Could not select from table: {err}")
         return None
 
-    if form is None:
-        fl.flash("Could not find the requested entity")
+    if result is None:
+        fl.flash(f"Could not find form with id {form_id}")
         return None
 
-    return form["name_"]
+    return result["name_"]
+
+
+def _get_form_question_count(form_id: str) -> int | None:
+    db = database.get_database()
+
+    try:
+        result = db.execute(
+            "SELECT COUNT(*) FROM question WHERE form_id = ?",
+            (form_id,)
+        ).fetchone()
+    except db.Error as err:
+        fl.flash(f"Could not select from table: {err}")
+        return None
+
+    if result is None:
+        fl.flash(f"Could not find form with id {form_id}")
+        return None
+
+    return result[0]
+
+
+def _get_form_question_indices(form_id: str) -> list[int] | None:
+    db = database.get_database()
+
+    try:
+        result = db.execute(
+            "SELECT index_ FROM question WHERE form_id = ?",
+            (form_id,)
+        ).fetchall()
+    except db.Error as err:
+        fl.flash(f"Could not select from table: {err}")
+        return None
+
+    if result is None:
+        fl.flash(f"Could not find form with id {form_id}")
+        return None
+
+    return result
 
 
 @g_blueprint.route("/start", methods=("GET", "POST"))
@@ -58,16 +105,25 @@ def _start():
 @g_blueprint.route("/form/<form_id>", methods=("GET", "POST"))
 def _form(form_id):
     if fl.request.method == "POST":
-        # TODO next question
+        # TODO insert answer
 
-        return fl.redirect(fl.url_for("create._done", _method="GET", form_id=form_id))
+        print(fl.request.form)
 
-    form_name = _get_form_name(form_id)
+    name = _get_form_name(form_id)
+    question_count = _get_form_question_count(form_id)
+    question_indices = _get_form_question_indices(form_id)
 
-    if form_name is None:
+    if None in (name, question_count, question_indices):
         return fl.redirect(fl.url_for("create._start", _method="GET"))
 
-    return fl.render_template("create/form.html", name=form_name, question=glob.QUESTIONS[0])
+    if question_count == len(glob.QUESTIONS):
+        return fl.redirect(fl.url_for("create._done", _method="GET", form_id=form_id))
+
+    print(question_indices)
+
+    index = _pick_random_question_index(question_indices)  # type: ignore
+
+    return fl.render_template("create/form.html", name=name, question_count=question_count, question=glob.QUESTIONS[index], question_index=index)
 
 
 @g_blueprint.route("/done/<form_id>")
