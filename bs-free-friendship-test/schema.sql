@@ -1,28 +1,40 @@
-DROP TABLE IF EXISTS form;
-DROP TABLE IF EXISTS question;
-DROP TABLE IF EXISTS answer;
+DROP TABLE IF EXISTS Form;
+DROP TABLE IF EXISTS CompletedForm;
+DROP TABLE IF EXISTS QuestionAnswer;
+DROP TABLE IF EXISTS FormQuestionAnswer;
+DROP TABLE IF EXISTS CompletedFormQuestionAnswer;
 
-CREATE TABLE form (
-    id TEXT NOT NULL PRIMARY KEY,
-    name_ TEXT NOT NULL
+CREATE TABLE Form (
+    Id TEXT NOT NULL PRIMARY KEY,
+    CreatorName TEXT NOT NULL
 );
 
-CREATE TABLE question (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    index_ INTEGER NOT NULL,
-    question TEXT NOT NULL,
-    question_test TEXT NOT NULL,
-    single_type BOOLEAN NOT NULL,
-    answers TEXT NOT NULL,
-    form_id TEXT NOT NULL,
+CREATE TABLE CompletedForm (
+    Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    FriendName TEXT NOT NULL,
+    FormId TEXT NOT NULL PRIMARY KEY,
 
-    FOREIGN KEY (form_id) REFERENCES form (id)
+    FOREIGN KEY (FormId) REFERENCES Form (Id)
 );
 
-CREATE TABLE answer (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    answer TEXT NOT NULL,
-    question_id INTEGER NOT NULL,
+CREATE TABLE QuestionAnswer (
+    Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    QuestionIndex INTEGER NOT NULL,
+    AnswerIndices TEXT NOT NULL  -- Comma separated list of indices
+);
 
-    FOREIGN KEY (question_id) REFERENCES question (id)
+CREATE TABLE FormQuestionAnswer (
+    FormId TEXT NOT NULL PRIMARY KEY,
+    QuestionAnswerId INTEGER NOT NULL PRIMARY KEY,
+
+    FOREIGN KEY (FormId) REFERENCES Form (Id),
+    FOREIGN KEY (QuestionAnswerId) REFERENCES QuestionAnswer (Id)
+);
+
+CREATE TABLE CompletedFormQuestionAnswer (
+    CompletedFormId INTEGER NOT NULL PRIMARY KEY,
+    QuestionAnswerId INTEGER NOT NULL PRIMARY KEY,
+
+    FOREIGN KEY (CompletedFormId) REFERENCES CompletedForm (Id),
+    FOREIGN KEY (QuestionAnswerId) REFERENCES QuestionAnswer (Id)
 );
