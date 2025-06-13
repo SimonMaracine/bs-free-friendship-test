@@ -211,7 +211,7 @@
     {
         "question": "What is your favorite season?",
         "question_test": "What is the favorite season of %?",
-        "single_type": "double",
+        "single_type": false,
         "answers": [
             "Spring",
             "Summer",
@@ -269,7 +269,7 @@
     {
         "question": "What is your temper?",
         "question_test": "What is the temper of %?",
-        "single_type": "double",
+        "single_type": true,
         "answers": [
             "Sanguine",
             "Phlegmatic",
@@ -280,7 +280,7 @@
     {
         "question": "What is your love language?",
         "question_test": "What is the love language of %?",
-        "single_type": "double",
+        "single_type": true,
         "answers": [
             "Words of affirmation",
             "Acts of service",

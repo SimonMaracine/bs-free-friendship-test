@@ -8,7 +8,7 @@ CREATE TABLE Form (
     Id TEXT NOT NULL PRIMARY KEY,
     CreatorName TEXT NOT NULL,
     ShuffledQuestionIndices TEXT NOT NULL,  -- Comma separated list of indices
-    CurrentQuestionIndex INTEGER NOT NULL
+    CurrentQuestionIndex INTEGER NOT NULL  -- Index in the shuffled array
 );
 
 CREATE TABLE CompletedForm (
