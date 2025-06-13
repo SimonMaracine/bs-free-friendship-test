@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <p>Quiz made by: {{ creator_name }}</p>
+
+    <form method="post">
+        <label for="friend_name">Your name:</label>
+        <input type="text" name="friend_name">
+        <br>
+
+        <input type="submit" value="Start Quiz">
+    </form>
+{% endblock %}

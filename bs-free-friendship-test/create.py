@@ -1,123 +1,11 @@
-import uuid
-import random
-
 import flask as fl
 
 from . import glob
 from . import database
+from . import common
 
 
 g_blueprint = fl.Blueprint("create", __name__, url_prefix="/create")
-
-
-def _creator_name_valid(creator_name: str) -> bool:
-    return bool(creator_name.strip())
-
-
-def _create_new_quiz(creator_name: str) -> str:
-    db = database.get_database()
-    new_id = str(uuid.uuid4().int)
-
-    question_indices = list(map(str, range(len(glob.QUESTIONS))))
-    random.shuffle(question_indices)
-
-    try:
-        db.execute(
-            "INSERT INTO Quiz (Id, CreatorName, ShuffledQuestionIndices, CurrentQuestionIndex) VALUES (?, ?, ?, ?)",
-            (new_id, creator_name.strip(), ",".join(question_indices), 0)
-        )
-        db.commit()
-    except db.Error as err:
-        raise database.DatabaseError(f"Could not insert into table: {err}")
-
-    return new_id
-
-
-def _get_quiz_data(quiz_id: str) -> tuple[str, list[int], int]:
-    db = database.get_database()
-
-    try:
-        result = db.execute("SELECT * FROM Quiz WHERE Id = ?", (quiz_id,)).fetchone()
-    except db.Error as err:
-        raise database.DatabaseError(f"Could not select from table: {err}")
-
-    if result is None:
-        raise database.DatabaseError(f"Could not find entity with id {quiz_id}")
-
-    return result["CreatorName"], list(map(int, result["ShuffledQuestionIndices"].split(","))), result["CurrentQuestionIndex"]
-
-
-def _get_quiz_question_count(quiz_id: str) -> int:
-    db = database.get_database()
-
-    try:
-        result = db.execute(
-            "SELECT COUNT(*) FROM QuestionAnswer JOIN QuizQuestionAnswer ON QuestionAnswer.Id = QuizQuestionAnswer.QuestionAnswerId "
-            "JOIN Quiz ON QuizQuestionAnswer.QuizId = Quiz.Id WHERE Quiz.Id = ?",
-            (quiz_id,)
-        ).fetchone()
-    except db.Error as err:
-        raise database.DatabaseError(f"Could not select from table: {err}")
-
-    if result is None:
-        raise database.DatabaseError(f"Could not find entity with id {quiz_id}")
-
-    return result[0]
-
-
-def _get_quiz_question_indices(quiz_id: str) -> list[int]:
-    db = database.get_database()
-
-    try:
-        result = db.execute(
-            "SELECT QuestionIndex FROM QuestionAnswer JOIN QuizQuestionAnswer ON QuestionAnswer.Id = QuizQuestionAnswer.QuestionAnswerId "
-            "JOIN Quiz ON QuizQuestionAnswer.QuizId = Quiz.Id WHERE Quiz.Id = ?",
-            (quiz_id,)
-        ).fetchall()
-    except db.Error as err:
-        raise database.DatabaseError(f"Could not select from table: {err}")
-
-    if result is None:
-        raise database.DatabaseError(f"Could not find entity with id {quiz_id}")
-
-    return list(map(lambda x: x[0], result))
-
-
-def _add_quiz_question_answer(quiz_id: str, question_index: int, answer_indices: list[str]):
-    db = database.get_database()
-
-    try:
-        result = db.execute(
-            "INSERT INTO QuestionAnswer (QuestionIndex, AnswerIndices) VALUES (?, ?) RETURNING Id",
-            (question_index, ",".join(answer_indices))
-        ).fetchone()
-        db.execute("INSERT INTO QuizQuestionAnswer (QuizId, QuestionAnswerId) VALUES (?, ?)", (quiz_id, result[0]))
-        db.commit()
-    except db.Error as err:
-        raise database.DatabaseError(f"Could not insert into table: {err}")
-
-
-def _next_quiz_question(quiz_id: str):
-    _, shuffled_question_indices, current_question_index = _get_quiz_data(quiz_id)
-    question_indices = _get_quiz_question_indices(quiz_id)
-
-    while True:
-        current_question_index = (current_question_index + 1) % len(glob.QUESTIONS)
-        question_index = shuffled_question_indices[current_question_index]
-
-        if question_index not in question_indices:
-            _update_quiz_current_question_index(quiz_id, current_question_index)
-            break
-
-
-def _update_quiz_current_question_index(quiz_id: str, current_question_index: int):
-    db = database.get_database()
-
-    try:
-        db.execute("UPDATE Quiz SET CurrentQuestionIndex = ? WHERE Id = ?", (current_question_index, quiz_id))
-        db.commit()
-    except db.Error as err:
-        raise database.DatabaseError(f"Could not update table: {err}")
 
 
 @g_blueprint.route("/start", methods=("GET", "POST"))
@@ -125,11 +13,11 @@ def _start():
     if fl.request.method == "POST":
         creator_name = fl.request.form["creator_name"]
 
-        if not _creator_name_valid(creator_name):
+        if not common.valid_name(creator_name):
             fl.flash("Invalid name")
         else:
             try:
-                quiz_id = _create_new_quiz(creator_name)
+                quiz_id = common.create_new_quiz(creator_name)
             except database.DatabaseError as err:
                 fl.flash(str(err))
             else:
@@ -150,14 +38,14 @@ def _form(quiz_id):
             fl.flash("You must either submit an answer or skip the question")
         else:
             try:
-                _add_quiz_question_answer(quiz_id, question_index, answers)
-                _next_quiz_question(quiz_id)
+                common.add_quiz_question_answer(quiz_id, question_index, answers)
+                common.next_quiz_question(quiz_id)
             except database.DatabaseError as err:
                 fl.flash(str(err))
 
     try:
-        creator_name, shuffled_question_indices, current_question_index = _get_quiz_data(quiz_id)
-        question_count = _get_quiz_question_count(quiz_id)
+        creator_name, shuffled_question_indices, current_question_index = common.get_quiz_data(quiz_id)
+        question_count = common.get_quiz_question_count(quiz_id)
     except database.DatabaseError as err:
         fl.flash(str(err))
         return fl.redirect(fl.url_for("create._start", _method="GET"))
@@ -178,7 +66,7 @@ def _form(quiz_id):
 @g_blueprint.route("/form/<quiz_id>/skip", methods=("POST",))
 def _form_skip(quiz_id):
     try:
-        _next_quiz_question(quiz_id)
+        common.next_quiz_question(quiz_id)
     except database.DatabaseError as err:
         fl.flash(str(err))
 
