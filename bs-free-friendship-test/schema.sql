@@ -42,3 +42,16 @@ CREATE TABLE CompletedFormQuestionAnswer (
     FOREIGN KEY (CompletedFormId) REFERENCES CompletedForm (Id),
     FOREIGN KEY (QuestionAnswerId) REFERENCES QuestionAnswer (Id)
 );
+
+CREATE TRIGGER IF NOT EXISTS AvoidDuplicateQuestionAnswers AFTER INSERT ON FormQuestionAnswer
+BEGIN
+    SELECT CASE
+        WHEN
+            (
+                SELECT COUNT(*) FROM QuestionAnswer JOIN FormQuestionAnswer ON QuestionAnswer.Id = FormQuestionAnswer.QuestionAnswerId
+                WHERE FormQuestionAnswer.FormId = NEW.FormId GROUP BY QuestionIndex HAVING COUNT(QuestionIndex) > 1
+            ) > 1
+        THEN
+            RAISE(ABORT, "Duplicate question answer")
+    END;
+END

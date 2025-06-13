@@ -1,6 +1,5 @@
 import uuid
 import random
-import copy
 
 import flask as fl
 
@@ -49,7 +48,8 @@ def _get_form_question_count(form_id: str) -> int:
 
     try:
         result = db.execute(
-            "SELECT COUNT(*) FROM QuestionAnswer JOIN FormQuestionAnswer ON QuestionAnswer.Id = FormQuestionAnswer.QuestionAnswerId JOIN Form ON FormQuestionAnswer.FormId = Form.Id WHERE Form.Id = ?",
+            "SELECT COUNT(*) FROM QuestionAnswer JOIN FormQuestionAnswer ON QuestionAnswer.Id = FormQuestionAnswer.QuestionAnswerId "
+            "JOIN Form ON FormQuestionAnswer.FormId = Form.Id WHERE Form.Id = ?",
             (form_id,)
         ).fetchone()
     except db.Error as err:
@@ -66,7 +66,8 @@ def _get_form_question_indices(form_id: str) -> list[int]:
 
     try:
         result = db.execute(
-            "SELECT QuestionIndex FROM QuestionAnswer JOIN FormQuestionAnswer ON QuestionAnswer.Id = FormQuestionAnswer.QuestionAnswerId JOIN Form ON FormQuestionAnswer.FormId = Form.Id WHERE Form.Id = ?",
+            "SELECT QuestionIndex FROM QuestionAnswer JOIN FormQuestionAnswer ON QuestionAnswer.Id = FormQuestionAnswer.QuestionAnswerId "
+            "JOIN Form ON FormQuestionAnswer.FormId = Form.Id WHERE Form.Id = ?",
             (form_id,)
         ).fetchall()
     except db.Error as err:
@@ -89,7 +90,7 @@ def _add_form_question_answer(form_id: str, question_index: int, answer_indices:
         db.execute("INSERT INTO FormQuestionAnswer (FormId, QuestionAnswerId) VALUES (?, ?)", (form_id, result[0]))
         db.commit()
     except db.Error as err:
-        raise database.DatabaseError(f"Could not select from table: {err}")
+        raise database.DatabaseError(f"Could not insert into table: {err}")
 
 
 def _next_form_question(form_id: str):
@@ -130,7 +131,7 @@ def _start():
 
 @g_blueprint.route("/form/<form_id>", methods=("GET", "POST"))
 def _form(form_id):
-    if fl.request.method == "POST":  # FIXME prevent double posts
+    if fl.request.method == "POST":
         print(fl.request.form)
 
         question_index = int(fl.request.form["question_index"])
