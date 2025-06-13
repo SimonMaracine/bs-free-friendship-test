@@ -10,6 +10,10 @@ from . import database
 g_blueprint = fl.Blueprint("create", __name__, url_prefix="/create")
 
 
+def _creator_name_valid(creator_name: str) -> bool:
+    return bool(creator_name.strip())
+
+
 def _create_new_form(creator_name: str) -> str:
     db = database.get_database()
     new_id = str(uuid.uuid4().int)
@@ -20,7 +24,7 @@ def _create_new_form(creator_name: str) -> str:
     try:
         db.execute(
             "INSERT INTO Form (Id, CreatorName, ShuffledQuestionIndices, CurrentQuestionIndex) VALUES (?, ?, ?, ?)",
-            (new_id, creator_name, ",".join(question_indices), 0)
+            (new_id, creator_name.strip(), ",".join(question_indices), 0)
         )
         db.commit()
     except db.Error as err:
@@ -119,12 +123,17 @@ def _update_form_current_question_index(form_id: str, current_question_index: in
 @g_blueprint.route("/start", methods=("GET", "POST"))
 def _start():
     if fl.request.method == "POST":
-        try:
-            form_id = _create_new_form(fl.request.form["creator_name"])
-        except database.DatabaseError as err:
-            fl.flash(str(err))
+        creator_name = fl.request.form["creator_name"]
+
+        if not _creator_name_valid(creator_name):
+            fl.flash("Invalid name")
         else:
-            return fl.redirect(fl.url_for("create._form", _method="GET", form_id=form_id))
+            try:
+                form_id = _create_new_form(creator_name)
+            except database.DatabaseError as err:
+                fl.flash(str(err))
+            else:
+                return fl.redirect(fl.url_for("create._form", _method="GET", form_id=form_id))
 
     return fl.render_template("create/start.html")
 
