@@ -130,7 +130,7 @@ def _start():
 
 @g_blueprint.route("/form/<form_id>", methods=("GET", "POST"))
 def _form(form_id):
-    if fl.request.method == "POST":
+    if fl.request.method == "POST":  # FIXME prevent double posts
         print(fl.request.form)
 
         question_index = int(fl.request.form["question_index"])
@@ -177,4 +177,4 @@ def _form_skip(form_id):
 
 @g_blueprint.route("/done/<form_id>")
 def _done(form_id):
-    return fl.render_template("create/done.html")
+    return fl.render_template("create/done.html", form_id=form_id)
