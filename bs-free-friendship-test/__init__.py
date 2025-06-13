@@ -42,9 +42,9 @@ def _initialize_application(application: fl.Flask):
     from . import database
     from . import commands
     from . import create
-    from . import test
+    from . import quiz
 
     application.teardown_appcontext(database.close_database)
     application.cli.add_command(commands.command_initialize_database)
     application.register_blueprint(create.g_blueprint)
-    application.register_blueprint(test.g_blueprint)
+    application.register_blueprint(quiz.g_blueprint)
