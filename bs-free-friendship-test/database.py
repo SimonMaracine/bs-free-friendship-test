@@ -3,6 +3,10 @@ import sqlite3
 import flask as fl
 
 
+class DatabaseError(Exception):
+    pass
+
+
 def get_database() -> sqlite3.Connection:
     # Stupid syntax
     if "database" not in fl.g:
@@ -22,14 +26,10 @@ def initialize_database():
     db = get_database()
 
     with fl.current_app.open_resource("schema.sql") as file:
-        db.executescript(file.read().decode("utf8"))
-
-
-def show_database():
-    db = get_database()
-
-    with fl.current_app.open_resource("scripts/show.sql") as file:
-        print(db.executescript(file.read().decode("utf8")).fetchall())
+        try:
+            db.executescript(file.read().decode("utf8"))
+        except Exception as err:
+            raise DatabaseError(f"Could not execute script: {err}")
 
 
 def _create_connection(database_path: str) -> sqlite3.Connection:

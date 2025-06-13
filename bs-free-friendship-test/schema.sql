@@ -6,13 +6,15 @@ DROP TABLE IF EXISTS CompletedFormQuestionAnswer;
 
 CREATE TABLE Form (
     Id TEXT NOT NULL PRIMARY KEY,
-    CreatorName TEXT NOT NULL
+    CreatorName TEXT NOT NULL,
+    ShuffledQuestionIndices TEXT NOT NULL,  -- Comma separated list of indices
+    CurrentQuestionIndex INTEGER NOT NULL
 );
 
 CREATE TABLE CompletedForm (
     Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     FriendName TEXT NOT NULL,
-    FormId TEXT NOT NULL PRIMARY KEY,
+    FormId TEXT NOT NULL,
 
     FOREIGN KEY (FormId) REFERENCES Form (Id)
 );
@@ -24,17 +26,19 @@ CREATE TABLE QuestionAnswer (
 );
 
 CREATE TABLE FormQuestionAnswer (
-    FormId TEXT NOT NULL PRIMARY KEY,
-    QuestionAnswerId INTEGER NOT NULL PRIMARY KEY,
+    FormId TEXT NOT NULL,
+    QuestionAnswerId INTEGER NOT NULL,
 
+    PRIMARY KEY (FormId, QuestionAnswerId),
     FOREIGN KEY (FormId) REFERENCES Form (Id),
     FOREIGN KEY (QuestionAnswerId) REFERENCES QuestionAnswer (Id)
 );
 
 CREATE TABLE CompletedFormQuestionAnswer (
-    CompletedFormId INTEGER NOT NULL PRIMARY KEY,
-    QuestionAnswerId INTEGER NOT NULL PRIMARY KEY,
+    CompletedFormId INTEGER NOT NULL,
+    QuestionAnswerId INTEGER NOT NULL,
 
+    PRIMARY KEY (CompletedFormId, QuestionAnswerId),
     FOREIGN KEY (CompletedFormId) REFERENCES CompletedForm (Id),
     FOREIGN KEY (QuestionAnswerId) REFERENCES QuestionAnswer (Id)
 );

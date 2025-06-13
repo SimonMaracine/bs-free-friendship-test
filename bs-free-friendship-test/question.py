@@ -5,7 +5,7 @@ import json
 from typing import IO
 
 
-class QuestionError(RuntimeError):
+class QuestionError(Exception):
     pass
 
 
