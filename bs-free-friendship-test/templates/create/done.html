@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
 
+{% block additional_head %}
+    <script src="{{ url_for('static', filename='copy_to_clipboard.js') }}"></script>
+{% endblock %}
+
 {% block content %}
     <p>Share your newly created <a href="/quiz/start/{{ quiz_id }}">quiz</a> with a friend!</p>
+    <input type="hidden" value="/quiz/start/{{ quiz_id }}" id="quiz_link">
+    <button onclick="copy_link_to_clipboard()">Copy Quiz Link</button>
+
     <p>Your friends' scores:</p>
 
     <table>
