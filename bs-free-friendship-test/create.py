@@ -75,4 +75,17 @@ def _form_skip(quiz_id):
 @g_blueprint.route("/done/<quiz_id>")
 def _done(quiz_id):
     # TODO display the results from friends
-    return fl.render_template("create/done.html", quiz_id=quiz_id)
+
+    results: list[tuple[str, int]] = []
+
+    try:
+        quiz_completed_quizes = common.get_quiz_completed_quizes(quiz_id)
+
+        for quiz in quiz_completed_quizes:
+            quiz_score = common.get_quiz_score(quiz[0])
+            results.append((quiz[1], int(quiz_score)))
+    except database.DatabaseError as err:
+        fl.flash(str(err))
+        return fl.redirect(fl.url_for("create._start"))
+
+    return fl.render_template("create/done.html", quiz_id=quiz_id, results=results)

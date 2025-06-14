@@ -2,5 +2,19 @@
 
 {% block content %}
     <p>Share your newly created <a href="/quiz/start/{{ quiz_id }}">quiz</a> with a friend!</p>
-    <p>Here you will see your friends' scores!</p>
+    <p>Your friends' scores:</p>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Score</th>
+        </tr>
+
+        {% for result in results %}
+            <tr>
+                <td>{{ result[0] }}</td>
+                <td>{{ result[1] }}/100</td>
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}

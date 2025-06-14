@@ -21,7 +21,7 @@ def _start(quiz_id):
             except database.DatabaseError as err:
                 fl.flash(str(err))
             else:
-                return fl.redirect(fl.url_for("quiz._form", _method="GET", quiz_id=quiz_id, completed_quiz_id=completed_quiz_id))
+                return fl.redirect(fl.url_for("quiz._form", _method="GET", completed_quiz_id=completed_quiz_id))
 
     try:
         question_count = common.get_quiz_question_count(quiz_id)
@@ -62,7 +62,7 @@ def _form(completed_quiz_id):
         friend_name, current_question_index, quiz_id = common.get_completed_quiz_data(completed_quiz_id)
         creator_name, _, _ = common.get_quiz_data(quiz_id)
         question_count = common.get_completed_quiz_question_count(completed_quiz_id)
-        question_indices = common.get_quiz_question_indices(quiz_id)
+        question_indices = common.get_quiz_question_answer_indices(quiz_id)
     except database.DatabaseError as err:
         fl.flash(str(err))
         return fl.redirect(fl.url_for("create._start", _method="GET"))
@@ -93,5 +93,12 @@ def _form_skip(completed_quiz_id):
 
 @g_blueprint.route("/done/<completed_quiz_id>")
 def _done(completed_quiz_id):
-    # TODO display the results
-    return fl.render_template("quiz/done.html")
+    try:
+        _, _, quiz_id = common.get_completed_quiz_data(completed_quiz_id)
+        creator_name, _, _ = common.get_quiz_data(quiz_id)
+        quiz_score = common.get_quiz_score(completed_quiz_id)
+    except database.DatabaseError as err:
+        fl.flash(str(err))
+        return fl.redirect(fl.url_for("create._start", _method="GET"))
+
+    return fl.render_template("quiz/done.html", creator_name=creator_name, quiz_score=int(quiz_score))

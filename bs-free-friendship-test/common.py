@@ -116,7 +116,7 @@ def get_completed_quiz_question_count(completed_quiz_id: str) -> int:
     return result[0]
 
 
-def get_quiz_question_indices(quiz_id: str) -> list[int]:
+def get_quiz_question_answer_indices(quiz_id: str) -> list[int]:
     db = database.get_database()
 
     try:
@@ -134,7 +134,7 @@ def get_quiz_question_indices(quiz_id: str) -> list[int]:
     return list(map(lambda x: x[0], result))
 
 
-def get_completed_quiz_question_indices(completed_quiz_id: str) -> list[int]:
+def get_completed_quiz_question_answer_indices(completed_quiz_id: str) -> list[int]:
     db = database.get_database()
 
     try:
@@ -150,6 +150,42 @@ def get_completed_quiz_question_indices(completed_quiz_id: str) -> list[int]:
         raise database.DatabaseError(f"Could not find entity with id {completed_quiz_id}")
 
     return list(map(lambda x: x[0], result))
+
+
+def get_quiz_question_answers(quiz_id: str) -> list[tuple[int, list[int]]]:
+    db = database.get_database()
+
+    try:
+        result = db.execute(
+            "SELECT QuestionIndex, AnswerIndices FROM QuestionAnswer JOIN QuizQuestionAnswer ON QuestionAnswer.Id = QuizQuestionAnswer.QuestionAnswerId "
+            "JOIN Quiz ON QuizQuestionAnswer.QuizId = Quiz.Id WHERE Quiz.Id = ? ORDER BY QuestionIndex ASC",
+            (quiz_id,)
+        ).fetchall()
+    except db.Error as err:
+        raise database.DatabaseError(f"Could not select from table: {err}")
+
+    if result is None:
+        raise database.DatabaseError(f"Could not find entity with id {quiz_id}")
+
+    return list(map(lambda x: (x[0], list(map(int, x[1].split(",")))), result))
+
+
+def get_completed_quiz_question_answers(completed_quiz_id: str) -> list[tuple[int, list[int]]]:
+    db = database.get_database()
+
+    try:
+        result = db.execute(
+            "SELECT QuestionIndex, AnswerIndices FROM QuestionAnswer JOIN CompletedQuizQuestionAnswer ON QuestionAnswer.Id = CompletedQuizQuestionAnswer.QuestionAnswerId "
+            "JOIN CompletedQuiz ON CompletedQuizQuestionAnswer.CompletedQuizId = CompletedQuiz.Id WHERE CompletedQuiz.Id = ? ORDER BY QuestionIndex ASC",
+            (completed_quiz_id,)
+        ).fetchall()
+    except db.Error as err:
+        raise database.DatabaseError(f"Could not select from table: {err}")
+
+    if result is None:
+        raise database.DatabaseError(f"Could not find entity with id {completed_quiz_id}")
+
+    return list(map(lambda x: (x[0], list(map(int, x[1].split(",")))), result))
 
 
 def add_quiz_question_answer(quiz_id: str, question_index: int, answer_indices: list[str]):
@@ -182,7 +218,7 @@ def add_completed_quiz_question_answer(completed_quiz_id: str, question_index: i
 
 def next_quiz_question(quiz_id: str):
     _, shuffled_question_indices, current_question_index = get_quiz_data(quiz_id)
-    current_question_indices = get_quiz_question_indices(quiz_id)
+    current_question_indices = get_quiz_question_answer_indices(quiz_id)
 
     initial = current_question_index
 
@@ -200,8 +236,8 @@ def next_quiz_question(quiz_id: str):
 
 def next_completed_quiz_question(completed_quiz_id: str):
     _, current_question_index, quiz_id = get_completed_quiz_data(completed_quiz_id)
-    current_question_indices = get_completed_quiz_question_indices(completed_quiz_id)
-    question_indices = get_quiz_question_indices(quiz_id)
+    current_question_indices = get_completed_quiz_question_answer_indices(completed_quiz_id)
+    question_indices = get_quiz_question_answer_indices(quiz_id)
 
     initial = current_question_index
 
@@ -235,3 +271,74 @@ def _update_completed_quiz_current_question_index(completed_quiz_id: str, curren
         db.commit()
     except db.Error as err:
         raise database.DatabaseError(f"Could not update table: {err}")
+
+
+def get_quiz_score(completed_quiz_id: str) -> float:
+    _, _, quiz_id = get_completed_quiz_data(completed_quiz_id)
+
+    quiz_question_answers = get_quiz_question_answers(quiz_id)
+    completed_quiz_question_answers = get_completed_quiz_question_answers(completed_quiz_id)
+
+    max_score = _get_quiz_max_score(quiz_question_answers)
+    score = 0
+
+    for question_answer in completed_quiz_question_answers:
+        score += _get_quiz_question_score(question_answer, quiz_question_answers)
+
+    assert score <= max_score
+
+    print("max_score", max_score)
+    print("score", score)
+
+    return float(score * 100) / float(max_score)
+
+
+def _get_quiz_max_score(quiz_question_answers: list[tuple[int, list[int]]]) -> int:
+    max_score = 0
+
+    for question_answer in quiz_question_answers:
+        if static.G_QUESTIONS[question_answer[0]].single_type:
+            max_score += 1
+        else:
+            max_score += len(question_answer[1])
+
+    return max_score
+
+
+def _get_quiz_question_score(completed_quiz_question_answer: tuple[int, list[int]], quiz_question_answers: list[tuple[int, list[int]]]) -> int:
+    for question_answer in quiz_question_answers:
+        if question_answer[0] != completed_quiz_question_answer[0]:
+            continue
+
+        if static.G_QUESTIONS[question_answer[0]].single_type:
+            return int(question_answer[1][0] == completed_quiz_question_answer[1][0])
+        else:
+            score = 0
+            for i in range(len(static.G_QUESTIONS[question_answer[0]].answers)):
+                if i in question_answer[1] and i in completed_quiz_question_answer[1]:
+                    score += 1
+                elif not (i not in question_answer[1] and i not in completed_quiz_question_answer[1]):
+                    score -= 1
+            return max(score, 0)
+
+    assert False
+
+
+def get_quiz_completed_quizes(quiz_id: str) -> list[tuple[str, str]]:
+    db = database.get_database()
+
+    try:
+        result = db.execute(
+            "SELECT Id, FriendName FROM CompletedQuiz WHERE QuizId = ? AND "
+            "(SELECT COUNT(*) FROM QuestionAnswer JOIN CompletedQuizQuestionAnswer ON QuestionAnswer.Id = CompletedQuizQuestionAnswer.QuestionAnswerId "
+            "JOIN CompletedQuiz ON CompletedQuizQuestionAnswer.CompletedQuizId = CompletedQuiz.Id WHERE CompletedQuiz.Id = CompletedQuiz.Id) = 20 "
+            "ORDER BY FriendName ASC",
+            (quiz_id,)
+        ).fetchall()
+    except db.Error as err:
+        raise database.DatabaseError(f"Could not select from table: {err}")
+
+    if result is None:
+        raise database.DatabaseError(f"Could not find entity with id {quiz_id}")
+
+    return list(map(lambda x: (x[0], x[1]), result))
