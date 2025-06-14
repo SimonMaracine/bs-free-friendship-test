@@ -3,9 +3,6 @@ import sys
 
 import flask as fl
 
-# https://flask.palletsprojects.com/en/stable/tutorial/views/
-# https://sqlite.org/lang.html
-
 
 def create_app():
     from . import question

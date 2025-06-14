@@ -1,1 +1,1 @@
-waitress-serve --call bs-free-friendship-test:create_app --port=7915
+waitress-serve --call bs_free_friendship_test:create_app

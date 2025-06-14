@@ -2,4 +2,4 @@
 
 clear
 cd ..
-flask --app bs-free-friendship-test run --debug
+flask --app bs_free_friendship_test run --debug
