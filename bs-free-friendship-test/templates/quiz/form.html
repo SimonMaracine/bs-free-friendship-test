@@ -1,5 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <p>This is where you complete the quiz</p>
+    <p>Quiz made by: {{ creator_name }}</p>
+    <p>Your name: {{ friend_name }}</p>
+    <p>Questions: {{ question_count }}/20</p>
+
+    <form method="post">
+        <p>{{ question.question_quiz }}</p>
+
+        {% for answer in question.answers %}
+            <input
+                type="{{ 'radio' if question.single_type else 'checkbox' }}"
+                id="{{ 'question_answer' ~ loop.index0 }}"
+                name="{{ 'question_answer' if question.single_type else 'question_answer' ~ loop.index0 }}"
+                value="{{ answer }}"
+            >
+            <label for="{{ 'question_answer' ~ loop.index0 }}">{{ answer }}</label>
+        {% endfor %}
+
+        <br>
+
+        <input type="hidden" name="question_index" value="{{ question_index }}">
+        <input type="submit" value="Submit Answer">
+        <input type="submit" value="Skip Question For Now" formaction="{{ completed_quiz_id }}/skip">
+    </form>
 {% endblock %}

@@ -4,7 +4,7 @@ import sys
 import flask as fl
 
 from . import question
-from . import glob
+from . import static
 
 # https://flask.palletsprojects.com/en/stable/tutorial/views/
 # https://sqlite.org/lang.html
@@ -29,7 +29,7 @@ def create_app():
     os.makedirs(application.instance_path, exist_ok=True)
 
     with application.open_resource("questions.json") as file:
-        glob.QUESTIONS = question.load_questions(file)
+        static.G_QUESTIONS = question.load_questions(file)
 
     @application.route("/hello")
     def hello():

@@ -3,17 +3,20 @@ DROP TABLE IF EXISTS CompletedQuiz;
 DROP TABLE IF EXISTS QuestionAnswer;
 DROP TABLE IF EXISTS QuizQuestionAnswer;
 DROP TABLE IF EXISTS CompletedQuizQuestionAnswer;
+DROP TRIGGER IF EXISTS AvoidDuplicateQuestionAnswers;
+DROP TRIGGER IF EXISTS AvoidDuplicateCompletedQuestionAnswers;
 
 CREATE TABLE Quiz (
     Id TEXT NOT NULL PRIMARY KEY,
     CreatorName TEXT NOT NULL,
-    ShuffledQuestionIndices TEXT NOT NULL,  -- Comma separated list of indices
-    CurrentQuestionIndex INTEGER NOT NULL  -- Index in the shuffled array
+    ShuffledQuestionIndices TEXT NOT NULL,  -- Comma separated list of indices (20)
+    CurrentQuestionIndex INTEGER NOT NULL  -- Index in the shuffled list (20)
 );
 
 CREATE TABLE CompletedQuiz (
-    Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    Id TEXT NOT NULL PRIMARY KEY,
     FriendName TEXT NOT NULL,
+    CurrentQuestionIndex INTEGER NOT NULL,  -- Index in the list (20)
     QuizId TEXT NOT NULL,
 
     FOREIGN KEY (QuizId) REFERENCES Quiz (Id)
@@ -35,7 +38,7 @@ CREATE TABLE QuizQuestionAnswer (
 );
 
 CREATE TABLE CompletedQuizQuestionAnswer (
-    CompletedQuizId INTEGER NOT NULL,
+    CompletedQuizId TEXT NOT NULL,
     QuestionAnswerId INTEGER NOT NULL,
 
     PRIMARY KEY (CompletedQuizId, QuestionAnswerId),
@@ -54,4 +57,17 @@ BEGIN
         THEN
             RAISE(ABORT, "Duplicate question answer")
     END;
-END
+END;
+
+CREATE TRIGGER IF NOT EXISTS AvoidDuplicateCompletedQuestionAnswers AFTER INSERT ON CompletedQuizQuestionAnswer
+BEGIN
+    SELECT CASE
+        WHEN
+            (
+                SELECT COUNT(*) FROM QuestionAnswer JOIN CompletedQuizQuestionAnswer ON QuestionAnswer.Id = CompletedQuizQuestionAnswer.QuestionAnswerId
+                WHERE CompletedQuizQuestionAnswer.CompletedQuizId = NEW.CompletedQuizId GROUP BY QuestionIndex HAVING COUNT(QuestionIndex) > 1
+            ) > 1
+        THEN
+            RAISE(ABORT, "Duplicate question answer")
+    END;
+END;

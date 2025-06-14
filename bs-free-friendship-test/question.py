@@ -12,7 +12,7 @@ class QuestionError(Exception):
 @dataclasses.dataclass(slots=True, frozen=True)
 class Question:
     question: str
-    question_test: str
+    question_quiz: str
     single_type: bool
     answers: list[str]
 
@@ -29,7 +29,7 @@ def load_questions(file: IO) -> list[Question]:
         return [
             Question(
                 question["question"],
-                question["question_test"],
+                question["question_quiz"],
                 question["single_type"],
                 question["answers"]
             )

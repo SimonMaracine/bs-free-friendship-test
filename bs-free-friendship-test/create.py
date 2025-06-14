@@ -1,7 +1,7 @@
 import flask as fl
 
-from . import glob
 from . import database
+from . import static
 from . import common
 
 
@@ -31,8 +31,7 @@ def _form(quiz_id):
     if fl.request.method == "POST":
         print(fl.request.form)
 
-        question_index = int(fl.request.form["question_index"])
-        answers = [str(glob.QUESTIONS[question_index].answers.index(value)) for (key, value) in fl.request.form.items() if key.startswith("question_answer")]
+        question_index, answers = common.get_form_answers(fl.request.form)
 
         if not answers:
             fl.flash("You must either submit an answer or skip the question")
@@ -57,7 +56,7 @@ def _form(quiz_id):
         "create/form.html",
         creator_name=creator_name,
         question_count=question_count,
-        question=glob.QUESTIONS[shuffled_question_indices[current_question_index]],
+        question=static.G_QUESTIONS[shuffled_question_indices[current_question_index]],
         question_index=shuffled_question_indices[current_question_index],
         quiz_id=quiz_id
     )
@@ -75,4 +74,5 @@ def _form_skip(quiz_id):
 
 @g_blueprint.route("/done/<quiz_id>")
 def _done(quiz_id):
+    # TODO display the results from friends
     return fl.render_template("create/done.html", quiz_id=quiz_id)
