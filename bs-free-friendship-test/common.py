@@ -329,9 +329,9 @@ def get_quiz_completed_quizes(quiz_id: str) -> list[tuple[str, str]]:
 
     try:
         result = db.execute(
-            "SELECT Id, FriendName FROM CompletedQuiz WHERE QuizId = ? AND "
+            "SELECT Id, FriendName FROM CompletedQuiz as InitialCompletedQuiz WHERE QuizId = ? AND "
             "(SELECT COUNT(*) FROM QuestionAnswer JOIN CompletedQuizQuestionAnswer ON QuestionAnswer.Id = CompletedQuizQuestionAnswer.QuestionAnswerId "
-            "JOIN CompletedQuiz ON CompletedQuizQuestionAnswer.CompletedQuizId = CompletedQuiz.Id WHERE CompletedQuiz.Id = CompletedQuiz.Id) = 20 "
+            "JOIN CompletedQuiz ON CompletedQuizQuestionAnswer.CompletedQuizId = CompletedQuiz.Id WHERE CompletedQuiz.Id = InitialCompletedQuiz.Id) = 20 "
             "ORDER BY FriendName ASC",
             (quiz_id,)
         ).fetchall()

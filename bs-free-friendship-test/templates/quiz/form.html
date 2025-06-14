@@ -3,24 +3,36 @@
 {% block additional_head %}{% endblock %}
 
 {% block content %}
-    <p>Quiz made by: {{ creator_name }}</p>
-    <p>Your name: {{ friend_name }}</p>
-    <p>Questions: {{ question_count }}/20</p>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-12">
+            <p>Quiz made by: {{ creator_name }}</p>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12">
+            <p>Your name: {{ friend_name }}</p>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12">
+            <p id="question-type">{{ 'Select one choice' if question.single_type else 'Select multiple choices' }}</p>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-12">
+            <p>Questions: {{ question_count }}/20</p>
+        </div>
+    </div>
+
+    <p id="question">{{ question.question_quiz }}</p>
 
     <form method="post">
-        <p>{{ question.question_quiz }}</p>
-
-        {% for answer in question.answers %}
-            <input
-                type="{{ 'radio' if question.single_type else 'checkbox' }}"
-                id="{{ 'question_answer' ~ loop.index0 }}"
-                name="{{ 'question_answer' if question.single_type else 'question_answer' ~ loop.index0 }}"
-                value="{{ answer }}"
-            >
-            <label for="{{ 'question_answer' ~ loop.index0 }}">{{ answer }}</label>
-        {% endfor %}
-
-        <br>
+        <div id="answers">
+            {% for answer in question.answers %}
+                <div id="answer">
+                    <input
+                        type="{{ 'radio' if question.single_type else 'checkbox' }}"
+                        id="{{ 'question_answer' ~ loop.index0 }}"
+                        name="{{ 'question_answer' if question.single_type else 'question_answer' ~ loop.index0 }}"
+                        value="{{ answer }}">
+                    <label for="{{ 'question_answer' ~ loop.index0 }}">{{ answer }}</label>
+                </div>
+            {% endfor %}
+        </div>
 
         <input type="hidden" name="question_index" value="{{ question_index }}">
         <input type="submit" value="Submit Answer">

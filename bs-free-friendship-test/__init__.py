@@ -3,14 +3,14 @@ import sys
 
 import flask as fl
 
-from . import question
-from . import static
-
 # https://flask.palletsprojects.com/en/stable/tutorial/views/
 # https://sqlite.org/lang.html
 
 
 def create_app():
+    from . import question
+    from . import static
+
     application = fl.Flask(__name__, instance_relative_config=True)
     application.config.from_mapping(
         SECRET_KEY="dev",  # Will be overriden
@@ -31,9 +31,9 @@ def create_app():
     with application.open_resource("questions.json") as file:
         static.G_QUESTIONS = question.load_questions(file)
 
-    @application.route("/hello")
-    def hello():
-        return "Hello, world!"
+    @application.route("/")
+    def index():
+        return fl.render_template("index.html")
 
     return application
 

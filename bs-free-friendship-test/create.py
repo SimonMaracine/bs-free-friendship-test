@@ -74,8 +74,6 @@ def _form_skip(quiz_id):
 
 @g_blueprint.route("/done/<quiz_id>")
 def _done(quiz_id):
-    # TODO display the results from friends
-
     results: list[tuple[str, int]] = []
 
     try:

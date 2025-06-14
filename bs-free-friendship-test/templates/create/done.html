@@ -5,23 +5,26 @@
 {% endblock %}
 
 {% block content %}
-    <p>Share your newly created <a href="/quiz/start/{{ quiz_id }}">quiz</a> with a friend!</p>
+    <p>Share your newly created <a class="hyper-link" href="/quiz/start/{{ quiz_id }}" target="_blank">quiz</a> with a friend!</p>
+
     <input type="hidden" value="/quiz/start/{{ quiz_id }}" id="quiz_link">
     <button onclick="copy_link_to_clipboard()">Copy Quiz Link</button>
 
-    <p>Your friends' scores:</p>
+    <div id="friends-scores">
+        <p>Your friends' scores:</p>
 
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Score</th>
-        </tr>
-
-        {% for result in results %}
+        <table id="friends-scores-table">
             <tr>
-                <td>{{ result[0] }}</td>
-                <td>{{ result[1] }}/100</td>
+                <th>Name</th>
+                <th>Score</th>
             </tr>
-        {% endfor %}
-    </table>
+
+            {% for result in results %}
+                <tr>
+                    <td>{{ result[0] }}</td>
+                    <td>{{ result[1] }}/100</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 {% endblock %}
