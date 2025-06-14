@@ -1,7 +1,7 @@
 [
     {
         "question": "What is your favorite color?",
-        "question_quiz": "What is the favorite color of %?",
+        "question_quiz": "What is the favorite color of your friend?",
         "single_type": false,
         "answers": [
             "Red",
@@ -21,7 +21,7 @@
     },
     {
         "question": "What is your birth month?",
-        "question_quiz": "What is the birth month of %?",
+        "question_quiz": "What is the birth month of your friend?",
         "single_type": true,
         "answers": [
             "January",
@@ -40,7 +40,7 @@
     },
     {
         "question": "What is favorite pet?",
-        "question_quiz": "What is the favorite pet of %?",
+        "question_quiz": "What is the favorite pet of your friend?",
         "single_type": false,
         "answers": [
             "Cat",
@@ -58,7 +58,7 @@
     },
     {
         "question": "What is your favorite video game genre?",
-        "question_quiz": "What is the favorite video game genre of %?",
+        "question_quiz": "What is the favorite video game genre of your friend?",
         "single_type": false,
         "answers": [
             "Action",
@@ -76,7 +76,7 @@
     },
     {
         "question": "What is your favorite movie genre?",
-        "question_quiz": "What is the favorite movie genre of %?",
+        "question_quiz": "What is the favorite movie genre of your friend?",
         "single_type": false,
         "answers": [
             "Cartoons",
@@ -92,7 +92,7 @@
     },
     {
         "question": "What is your favorite game type?",
-        "question_quiz": "What is the favorite game type of %?",
+        "question_quiz": "What is the favorite game type of your friend?",
         "single_type": false,
         "answers": [
             "Video game",
@@ -105,7 +105,7 @@
     },
     {
         "question": "What is your favorite book genre?",
-        "question_quiz": "What is the favorite book genre of %?",
+        "question_quiz": "What is the favorite book genre of your friend?",
         "single_type": false,
         "answers": [
             "Fantasy",
@@ -121,7 +121,7 @@
     },
     {
         "question": "What is your favorite music genre?",
-        "question_quiz": "What is the favorite music genre of %?",
+        "question_quiz": "What is the favorite music genre of your friend?",
         "single_type": false,
         "answers": [
             "Rock",
@@ -137,23 +137,21 @@
         ]
     },
     {
-        "question": "What instrument do you play?",
-        "question_quiz": "What instrument does % play?",
+        "question": "What kind of instrument do you play?",
+        "question_quiz": "What kind of instrument does your friend play?",
         "single_type": false,
         "answers": [
-            "Guitar",
-            "Violin",
-            "Cello",
-            "Ukulele",
-            "Piano",
+            "Strings (guitar, violin etc.)",
+            "Keyboard",
             "Percussion",
-            "Wind (e.g. saxophone, clarinet, flute)",
+            "Winds (clarinet, saxophone etc.)",
+            "Brass (trumpet, trombone etc.)",
             "(Other instrument)"
         ]
     },
     {
         "question": "What is the activity you do the most in the free time?",
-        "question_quiz": "What is the activity % does the most in the free time?",
+        "question_quiz": "What is the activity your friend does the most in the free time?",
         "single_type": false,
         "answers": [
             "Sleep",
@@ -175,7 +173,7 @@
     },
     {
         "question": "What is your favorite terrain type?",
-        "question_quiz": "What is the favorite terrain type of %?",
+        "question_quiz": "What is the favorite terrain type of your friend?",
         "single_type": true,
         "answers": [
             "Mountain",
@@ -186,7 +184,7 @@
     },
     {
         "question": "What is your favorite type of dessert?",
-        "question_quiz": "What is the favorite type of dessert of %?",
+        "question_quiz": "What is the favorite type of dessert of your friend?",
         "single_type": true,
         "answers": [
             "Salty",
@@ -195,7 +193,7 @@
     },
     {
         "question": "What is your favorite drink?",
-        "question_quiz": "What is the favorite drink of %?",
+        "question_quiz": "What is the favorite drink of your friend?",
         "single_type": false,
         "answers": [
             "Water",
@@ -210,7 +208,7 @@
     },
     {
         "question": "What is your favorite season?",
-        "question_quiz": "What is the favorite season of %?",
+        "question_quiz": "What is the favorite season of your friend?",
         "single_type": false,
         "answers": [
             "Spring",
@@ -221,7 +219,7 @@
     },
     {
         "question": "What operating system do you use on the phone?",
-        "question_quiz": "What operating system does % use on the phone?",
+        "question_quiz": "What operating system does your friend use on the phone?",
         "single_type": true,
         "answers": [
             "Android",
@@ -233,7 +231,7 @@
     },
     {
         "question": "What operating system do you use the most on the computer?",
-        "question_quiz": "What operating system does % use the most on the computer?",
+        "question_quiz": "What operating system does your friend use the most on the computer?",
         "single_type": true,
         "answers": [
             "Linux",
@@ -245,7 +243,7 @@
     },
     {
         "question": "Which game console would you rather play on?",
-        "question_quiz": "Which game console would % rather play on?",
+        "question_quiz": "Which game console would your friend rather play on?",
         "single_type": true,
         "answers": [
             "PlayStation 4",
@@ -257,7 +255,7 @@
     },
     {
         "question": "Which is your favorite moment of the day?",
-        "question_quiz": "Which is the favorite moment of the day of %?",
+        "question_quiz": "Which is the favorite moment of the day of your friend?",
         "single_type": true,
         "answers": [
             "Morning",
@@ -268,7 +266,7 @@
     },
     {
         "question": "What is your temper?",
-        "question_quiz": "What is the temper of %?",
+        "question_quiz": "What is the temper of your friend?",
         "single_type": true,
         "answers": [
             "Sanguine",
@@ -279,7 +277,7 @@
     },
     {
         "question": "What is your love language?",
-        "question_quiz": "What is the love language of %?",
+        "question_quiz": "What is the love language of your friend?",
         "single_type": true,
         "answers": [
             "Words of affirmation",
@@ -291,7 +289,7 @@
     },
     {
         "question": "Do you sleep before 12 PM?",
-        "question_quiz": "Does % sleep before 12 PM?",
+        "question_quiz": "Does your friend sleep before 12 PM?",
         "single_type": true,
         "answers": [
             "Always",
@@ -301,7 +299,7 @@
     },
     {
         "question": "How would you like to travel by?",
-        "question_quiz": "How would % like to travel by?",
+        "question_quiz": "How would your friend like to travel by?",
         "single_type": false,
         "answers": [
             "Foot",
@@ -317,7 +315,7 @@
     },
     {
         "question": "What is your favorite weather?",
-        "question_quiz": "What is the favorite weather of %?",
+        "question_quiz": "What is the favorite weather of your friend?",
         "single_type": false,
         "answers": [
             "Sunny",
@@ -332,7 +330,7 @@
     },
     {
         "question": "Have you ever cheated at school exams?",
-        "question_quiz": "Has % ever cheated at school exams?",
+        "question_quiz": "Has your friend ever cheated at school exams?",
         "single_type": true,
         "answers": [
             "Yes",
@@ -341,7 +339,7 @@
     },
     {
         "question": "Which school would you rather attend?",
-        "question_quiz": "Which school would % rather attend?",
+        "question_quiz": "Which school would your friend rather attend?",
         "single_type": true,
         "answers": [
             "Public school",
@@ -351,7 +349,7 @@
     },
     {
         "question": "Do you agree with generative artificial intelligence being a norm?",
-        "question_quiz": "Does % agree with generative artificial intelligence being a norm?",
+        "question_quiz": "Does your friend agree with generative artificial intelligence being a norm?",
         "single_type": true,
         "answers": [
             "Yes",
@@ -361,7 +359,7 @@
     },
     {
         "question": "What shopping would you rather choose?",
-        "question_quiz": "What shopping would % rather choose?",
+        "question_quiz": "What shopping would your friend rather choose?",
         "single_type": true,
         "answers": [
             "Online shopping",
@@ -370,7 +368,7 @@
     },
     {
         "question": "Caution: cereal before milk OR milk before cereal?",
-        "question_quiz": "What % would do: cereal before milk OR milk before cereal?",
+        "question_quiz": "What your friend would do: cereal before milk OR milk before cereal?",
         "single_type": true,
         "answers": [
             "Cereal before milk (right)",
@@ -379,7 +377,7 @@
     },
     {
         "question": "Are you left-handed or right-handed?",
-        "question_quiz": "Is % left-handed or right-handed?",
+        "question_quiz": "Is your friend left-handed or right-handed?",
         "single_type": true,
         "answers": [
             "Left-handed",
@@ -388,7 +386,7 @@
     },
     {
         "question": "Are you a morning bird or a night owl?",
-        "question_quiz": "Is % a morning bird or a night owl?",
+        "question_quiz": "Is your friend a morning bird or a night owl?",
         "single_type": true,
         "answers": [
             "Morning bird",
@@ -397,7 +395,7 @@
     },
     {
         "question": "Which generation are you?",
-        "question_quiz": "Which generation is %?",
+        "question_quiz": "Which generation is your friend?",
         "single_type": true,
         "answers": [
             "Generation X (boomer)",
@@ -408,7 +406,7 @@
     },
     {
         "question": "Are you rather a cat person or a dog person?",
-        "question_quiz": "Is % rather a cat person or a dog person?",
+        "question_quiz": "Is your friend rather a cat person or a dog person?",
         "single_type": true,
         "answers": [
             "Cat person",
@@ -417,7 +415,7 @@
     },
     {
         "question": "How many siblings do you have?",
-        "question_quiz": "How many siblings does % have?",
+        "question_quiz": "How many siblings does your friend have?",
         "single_type": true,
         "answers": [
             "0",
@@ -430,7 +428,7 @@
     },
     {
         "question": "What social media platform do you use the most?",
-        "question_quiz": "What social media platform does % use the most?",
+        "question_quiz": "What social media platform does your friend use the most?",
         "single_type": true,
         "answers": [
             "Facebook",
@@ -447,7 +445,7 @@
     },
     {
         "question": "Which is your computer knowledge level?",
-        "question_quiz": "Which is the computer knowledge level of %?",
+        "question_quiz": "Which is the computer knowledge level of your friend?",
         "single_type": true,
         "answers": [
             "Caveman",
@@ -460,7 +458,7 @@
     },
     {
         "question": "Which personality are you?",
-        "question_quiz": "Which personality is %?",
+        "question_quiz": "Which personality is your friend?",
         "single_type": true,
         "answers": [
             "Extrovert",
