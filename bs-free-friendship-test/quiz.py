@@ -17,7 +17,7 @@ def _start(quiz_id):
             fl.flash("Invalid name")
         else:
             try:
-                completed_quiz_id = common.create_new_completed_quiz(friend_name, quiz_id)
+                completed_quiz_id = common.create_new_completed_quiz(friend_name.strip(), quiz_id)
             except database.DatabaseError as err:
                 fl.flash(str(err))
             else:

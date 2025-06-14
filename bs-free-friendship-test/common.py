@@ -6,7 +6,8 @@ from . import static
 
 
 def valid_name(name: str) -> bool:
-    return bool(name.strip())
+    stripped_name = name.strip()
+    return 0 < len(stripped_name) < 20
 
 
 def get_form_answers(form) -> tuple[int, list[str]]:
