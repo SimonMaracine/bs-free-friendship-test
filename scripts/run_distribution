@@ -1,1 +1,5 @@
-waitress-serve --call bs_free_friendship_test:create_app
+if [[ $1 = "" ]]; then
+    waitress-serve --call bs_free_friendship_test:create_app
+else
+    waitress-serve --port=$1 --call bs_free_friendship_test:create_app
+fi
