@@ -29,8 +29,6 @@ def _start():
 @g_blueprint.route("/form/<quiz_id>", methods=("GET", "POST"))
 def _form(quiz_id):
     if fl.request.method == "POST":
-        print(fl.request.form)
-
         question_index, answers = common.get_form_answers(fl.request.form)
 
         if not answers:
@@ -43,7 +41,7 @@ def _form(quiz_id):
                 fl.flash(str(err))
 
     try:
-        creator_name, shuffled_question_indices, current_question_index = common.get_quiz_data(quiz_id)
+        _, creator_name, shuffled_question_indices, current_question_index = common.get_quiz_data(quiz_id)
         question_count = common.get_quiz_question_count(quiz_id)
     except database.DatabaseError as err:
         fl.flash(str(err))
@@ -77,7 +75,7 @@ def _done(quiz_id):
     results: list[tuple[str, int]] = []
 
     try:
-        creator_name, _, _ = common.get_quiz_data(quiz_id)
+        public_quiz_id, creator_name, _, _ = common.get_quiz_data(quiz_id)
         quiz_completed_quizes = common.get_quiz_completed_quizes(quiz_id)
 
         for quiz in quiz_completed_quizes:
@@ -87,4 +85,4 @@ def _done(quiz_id):
         fl.flash(str(err))
         return fl.redirect(fl.url_for("create._start"))
 
-    return fl.render_template("create/done.html", creator_name=creator_name, quiz_id=quiz_id, results=results)
+    return fl.render_template("create/done.html", creator_name=creator_name, public_quiz_id=public_quiz_id, results=results)

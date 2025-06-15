@@ -6,11 +6,11 @@
 
 {% block content %}
     <p>
-        Done! Share your newly created <a class="hyper-link" href="/quiz/start/{{ quiz_id }}" target="_blank">quiz</a> with a friend!
+        Done! Share your newly created <a class="hyper-link" href="/quiz/start/{{ public_quiz_id }}" target="_blank">quiz</a> with a friend!
         They will see you as <span class="mono">{{ creator_name }}</span>.
     </p>
 
-    <input type="hidden" value="/quiz/start/{{ quiz_id }}" id="quiz_link">
+    <input type="hidden" value="/quiz/start/{{ public_quiz_id }}" id="quiz_link">
     <button class="input-button" onclick="copy_link_to_clipboard()">Copy Quiz Link</button>
 
     <div id="friends-scores">

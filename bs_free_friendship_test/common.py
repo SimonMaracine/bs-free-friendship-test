@@ -10,6 +10,10 @@ def valid_name(name: str) -> bool:
     return 0 < len(stripped_name) <= 20
 
 
+def create_new_id() -> str:
+    return str(uuid.uuid4().hex)
+
+
 def get_form_answers(form) -> tuple[int, list[str]]:
     question_index = int(form["question_index"])
     answers = [str(static.G_QUESTIONS[question_index].answers.index(value)) for (key, value) in form.items() if key.startswith("question_answer")]
@@ -20,14 +24,15 @@ def get_form_answers(form) -> tuple[int, list[str]]:
 def create_new_quiz(creator_name: str) -> str:
     db = database.get_database()
 
-    new_id = str(uuid.uuid4().int)
+    new_id = create_new_id()
+    new_public_id = create_new_id()
     question_indices = list(map(str, range(len(static.G_QUESTIONS))))
     random.shuffle(question_indices)
 
     try:
         db.execute(
-            "INSERT INTO Quiz (Id, CreatorName, ShuffledQuestionIndices, CurrentQuestionIndex) VALUES (?, ?, ?, ?)",
-            (new_id, creator_name.strip(), ",".join(question_indices), 0)
+            "INSERT INTO Quiz (Id, PublicId, CreatorName, ShuffledQuestionIndices, CurrentQuestionIndex) VALUES (?, ?, ?, ?, ?)",
+            (new_id, new_public_id, creator_name, ",".join(question_indices), 0)
         )
         db.commit()
     except db.Error as err:
@@ -39,12 +44,12 @@ def create_new_quiz(creator_name: str) -> str:
 def create_new_completed_quiz(friend_name: str, quiz_id: str) -> str:
     db = database.get_database()
 
-    new_id = str(uuid.uuid4().int)
+    new_id = create_new_id()
 
     try:
         db.execute(
             "INSERT INTO CompletedQuiz (Id, FriendName, CurrentQuestionIndex, QuizId) VALUES (?, ?, ?, ?)",
-            (new_id, friend_name.strip(), 0, quiz_id)
+            (new_id, friend_name, 0, quiz_id)
         )
         db.commit()
     except db.Error as err:
@@ -53,7 +58,21 @@ def create_new_completed_quiz(friend_name: str, quiz_id: str) -> str:
     return new_id
 
 
-def get_quiz_data(quiz_id: str) -> tuple[str, list[int], int]:
+def get_quiz_id_from_public_id(public_quiz_id: str) -> str:
+    db = database.get_database()
+
+    try:
+        result = db.execute("SELECT Id FROM Quiz WHERE PublicId = ?", (public_quiz_id,)).fetchone()
+    except db.Error as err:
+        raise database.DatabaseError(f"Could not select from table: {err}")
+
+    if result is None:
+        raise database.DatabaseError(f"Could not find entity with id {public_quiz_id}")
+
+    return result[0]
+
+
+def get_quiz_data(quiz_id: str) -> tuple[str, str, list[int], int]:
     db = database.get_database()
 
     try:
@@ -64,7 +83,7 @@ def get_quiz_data(quiz_id: str) -> tuple[str, list[int], int]:
     if result is None:
         raise database.DatabaseError(f"Could not find entity with id {quiz_id}")
 
-    return result["CreatorName"], list(map(int, result["ShuffledQuestionIndices"].split(","))), result["CurrentQuestionIndex"]
+    return result["PublicId"], result["CreatorName"], list(map(int, result["ShuffledQuestionIndices"].split(","))), result["CurrentQuestionIndex"]
 
 
 def get_completed_quiz_data(completed_quiz_id: str) -> tuple[str, int, str]:
@@ -218,7 +237,7 @@ def add_completed_quiz_question_answer(completed_quiz_id: str, question_index: i
 
 
 def next_quiz_question(quiz_id: str):
-    _, shuffled_question_indices, current_question_index = get_quiz_data(quiz_id)
+    _, _, shuffled_question_indices, current_question_index = get_quiz_data(quiz_id)
     current_question_indices = get_quiz_question_answer_indices(quiz_id)
 
     initial = current_question_index
@@ -287,9 +306,6 @@ def get_quiz_score(completed_quiz_id: str) -> float:
         score += _get_quiz_question_score(question_answer, quiz_question_answers)
 
     assert score <= max_score
-
-    print("max_score", max_score)
-    print("score", score)
 
     return float(score * 100) / float(max_score)
 

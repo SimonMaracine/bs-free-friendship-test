@@ -8,6 +8,7 @@ DROP TRIGGER IF EXISTS AvoidDuplicateCompletedQuestionAnswers;
 
 CREATE TABLE Quiz (
     Id TEXT NOT NULL PRIMARY KEY,
+    PublicId TEXT NOT NULL,  -- Not primary key
     CreatorName TEXT NOT NULL,
     ShuffledQuestionIndices TEXT NOT NULL,  -- Comma separated list of indices (20)
     CurrentQuestionIndex INTEGER NOT NULL  -- Index in the shuffled list (20)
