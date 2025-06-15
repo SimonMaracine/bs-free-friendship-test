@@ -1,3 +1,4 @@
 #! /usr/bin/bash
 
-python3 -m venv ../.env
+cd ..
+python3 -m venv .env

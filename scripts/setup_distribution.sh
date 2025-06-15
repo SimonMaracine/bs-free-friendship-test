@@ -1,13 +1,11 @@
 #! /usr/bin/bash
 
-cd ..
+./create_environment.sh
+source ../.env/bin/activate
 
-scripts/create_environment.sh
-source .env/bin/activate
+./install_dependencies.sh
+./install_production_server.sh
 
-scripts/install_dependencies.sh
-scripts/install_production_server.sh
-
-mkdir instance
-scripts/generate_secret_key.py >> instance/configuration.py
-scripts/initialize_database.sh
+mkdir ../instance
+./generate_secret_key.py >> ../instance/configuration.py
+./initialize_database.sh
