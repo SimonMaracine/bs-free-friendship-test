@@ -8,7 +8,7 @@ from . import common
 g_blueprint = fl.Blueprint("create", __name__, url_prefix="/create")
 
 
-@g_blueprint.route("/start", methods=("GET", "POST"))
+@g_blueprint.route("/start", methods=("GET", "POST"))  # TODO handle errors differently
 def _start():
     if fl.request.method == "POST":
         creator_name = fl.request.form["creator_name"]

@@ -12,7 +12,7 @@ def create_app():
 
     application = fl.Flask(__name__, instance_relative_config=True)
     application.config.from_mapping(
-        SECRET_KEY="dev",  # Will be overriden
+        SECRET_KEY="dev",  # Gets overriden by configuration
         DATABASE=os.path.join(application.instance_path, "bs-free-friendship-test.sqlite")
     )
 

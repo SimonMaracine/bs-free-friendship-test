@@ -1,7 +1,7 @@
 [
     {
-        "question": "What colors you like the most?",
-        "question_quiz": "What colors your friend likes the most?",
+        "question": "What colors do you like the most?",
+        "question_quiz": "What colors does your friend like the most?",
         "single_type": false,
         "answers": [
             "Red",
@@ -39,8 +39,8 @@
         ]
     },
     {
-        "question": "What pets you like the most?",
-        "question_quiz": "What pets your friend likes the most?",
+        "question": "What pets do you like the most?",
+        "question_quiz": "What pets does your friend like the most?",
         "single_type": false,
         "answers": [
             "Cat",
@@ -57,8 +57,8 @@
         ]
     },
     {
-        "question": "What video game genres you prefer?",
-        "question_quiz": "What video game genres your friend prefers?",
+        "question": "What video game genres do you prefer?",
+        "question_quiz": "What video game genres does your friend prefer?",
         "single_type": false,
         "answers": [
             "Action",
@@ -75,8 +75,8 @@
         ]
     },
     {
-        "question": "What movie genres you prefer?",
-        "question_quiz": "What movie genres your friend prefers?",
+        "question": "What movie genres do you prefer?",
+        "question_quiz": "What movie genres does your friend prefer?",
         "single_type": false,
         "answers": [
             "Cartoons",
@@ -91,8 +91,8 @@
         ]
     },
     {
-        "question": "What types of games you like to play?",
-        "question_quiz": "What types of games your friend likes to play?",
+        "question": "What types of games do you like to play?",
+        "question_quiz": "What types of games does your friend like to play?",
         "single_type": false,
         "answers": [
             "Video game",
@@ -104,8 +104,8 @@
         ]
     },
     {
-        "question": "What book genres you like to read?",
-        "question_quiz": "What book genres your friend likes to read?",
+        "question": "What book genres do you like to read?",
+        "question_quiz": "What book genres does your friend like to read?",
         "single_type": false,
         "answers": [
             "Fantasy",
@@ -120,8 +120,8 @@
         ]
     },
     {
-        "question": "What music genres you like to listen to?",
-        "question_quiz": "What music genres your friend likes to listen to?",
+        "question": "What music genres do you like to listen to?",
+        "question_quiz": "What music genres does your friend like to listen to?",
         "single_type": false,
         "answers": [
             "Rock",
@@ -151,8 +151,8 @@
         ]
     },
     {
-        "question": "What are the activities you do the most in the free time?",
-        "question_quiz": "What are the activities your friend does the most in the free time?",
+        "question": "What are the activities you do the most in your free time?",
+        "question_quiz": "What are the activities your friend does the most in their free time?",
         "single_type": false,
         "answers": [
             "Sleep",
@@ -185,8 +185,8 @@
         ]
     },
     {
-        "question": "Which type of dessert you prefer?",
-        "question_quiz": "Which type of dessert your friend prefers?",
+        "question": "Which type of dessert do you prefer?",
+        "question_quiz": "Which type of dessert does your friend prefer?",
         "single_type": true,
         "answers": [
             "Salty",
@@ -194,8 +194,8 @@
         ]
     },
     {
-        "question": "What drinks you prefer?",
-        "question_quiz": "What drinks your friend prefers?",
+        "question": "What drinks do you prefer?",
+        "question_quiz": "What drinks does your friend prefer?",
         "single_type": false,
         "answers": [
             "Water",
@@ -209,8 +209,8 @@
         ]
     },
     {
-        "question": "What seasons you like?",
-        "question_quiz": "What seasons your friend likes?",
+        "question": "What seasons do you like?",
+        "question_quiz": "What seasons does your friend like?",
         "single_type": false,
         "answers": [
             "Spring",
@@ -220,8 +220,8 @@
         ]
     },
     {
-        "question": "Which operating system you use on the phone?",
-        "question_quiz": "Which operating system your friend uses on the phone?",
+        "question": "Which operating system do you use on the phone?",
+        "question_quiz": "Which operating system does your friend use on the phone?",
         "single_type": true,
         "answers": [
             "Android",
@@ -232,8 +232,8 @@
         ]
     },
     {
-        "question": "Which operating system you use the most on the computer?",
-        "question_quiz": "Which operating system your friend uses the most on the computer?",
+        "question": "Which operating system do you use the most on the computer?",
+        "question_quiz": "Which operating system does your friend use the most on the computer?",
         "single_type": true,
         "answers": [
             "BSD",
@@ -317,8 +317,8 @@
         ]
     },
     {
-        "question": "What weather you like?",
-        "question_quiz": "What weather your friend likes?",
+        "question": "What weather do you like?",
+        "question_quiz": "What weather does your friend like?",
         "single_type": false,
         "answers": [
             "Sunny",
@@ -426,7 +426,8 @@
             "2",
             "3",
             "4",
-            "5+"
+            "5",
+            "6 or more"
         ]
     },
     {
@@ -467,6 +468,108 @@
             "Extrovert",
             "Introvert",
             "Ambivert"
+        ]
+    },
+    {
+        "question": "Do you have eyeglasses?",
+        "question_quiz": "Does your friend have eyeglasses?",
+        "single_type": true,
+        "answers": [
+            "Yes",
+            "No"
+        ]
+    },
+    {
+        "question": "Have you ever had a surgery?",
+        "question_quiz": "Has your friend ever had a surgery?",
+        "single_type": true,
+        "answers": [
+            "Yes",
+            "No"
+        ]
+    },
+    {
+        "question": "Do you sleep with stuffed animals?",
+        "question_quiz": "Does your friend sleep with stuffed animals?",
+        "single_type": true,
+        "answers": [
+            "Yes",
+            "No"
+        ]
+    },
+    {
+        "question": "Would you rather read the book or watch the movie?",
+        "question_quiz": "Would your friend rather read the book or watch the movie?",
+        "single_type": true,
+        "answers": [
+            "Read the book",
+            "Watch the movie"
+        ]
+    },
+    {
+        "question": "Are you allergic to something?",
+        "question_quiz": "Is your friend allergic to something?",
+        "single_type": true,
+        "answers": [
+            "Yes",
+            "No"
+        ]
+    },
+    {
+        "question": "Are you colorblind?",
+        "question_quiz": "Is your friend colorblind?",
+        "single_type": true,
+        "answers": [
+            "Yes",
+            "No"
+        ]
+    },
+    {
+        "question": "Which browser do you use the most?",
+        "question_quiz": "Which browser does your friend use the most?",
+        "single_type": true,
+        "answers": [
+            "Firefox",
+            "Chromium",
+            "Chrome",
+            "Brave",
+            "Opera",
+            "Edge",
+            "Ungoogled Chromium",
+            "Safari",
+            "Ladybird",
+            "What is a browser?"
+        ]
+    },
+    {
+        "question": "How many languages do you know?",
+        "question_quiz": "How many languages does your friend know?",
+        "single_type": true,
+        "answers": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6 or more"
+        ]
+    },
+    {
+        "question": "Would you rather choose a vacation to the beach or in the mountains?",
+        "question_quiz": "Would your friend rather choose a vacation to the beach or in the mountains?",
+        "single_type": true,
+        "answers": [
+            "To the beach",
+            "In the mountains"
+        ]
+    },
+    {
+        "question": "Have you ever created a serious work of art (poem, novel, song, movie, painting etc.)?",
+        "question_quiz": "Has your friend ever created a serious work of art (poem, novel, song, movie, painting etc.)?",
+        "single_type": true,
+        "answers": [
+            "Yes",
+            "No"
         ]
     }
 ]

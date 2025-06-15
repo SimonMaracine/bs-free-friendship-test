@@ -5,7 +5,7 @@ from . import database
 from . import static
 
 
-def valid_name(name: str) -> bool:
+def valid_name(name: str) -> bool:  # FIXME validate data in database
     stripped_name = name.strip()
     return 0 < len(stripped_name) <= 20
 
@@ -364,7 +364,7 @@ def get_quiz_completed_quizes(quiz_id: str) -> list[tuple[str, str]]:
 
 def delete_quizes_older_than(db: database.sqlite3.Connection, hours: int):
     try:
-        db.execute("DELETE FROM Quiz WHERE CreationTimeStamp - UNIXEPOCH() > ?", (hours * 3600,))
+        db.execute("DELETE FROM Quiz WHERE UNIXEPOCH() - CreationTimeStamp > ?", (hours * 3600,))
         db.commit()
     except db.Error as err:
         raise database.DatabaseError(f"Could not delete from table: {err}")

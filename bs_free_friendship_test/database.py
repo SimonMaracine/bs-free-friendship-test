@@ -36,11 +36,7 @@ def initialize_database(application: fl.Flask):
 
 
 def _create_connection(database_path: str) -> sqlite3.Connection:
-    connection = sqlite3.connect(
-        database_path,
-        detect_types=sqlite3.PARSE_DECLTYPES
-    )
-
+    connection = sqlite3.connect(database_path, detect_types=sqlite3.PARSE_DECLTYPES)
     connection.row_factory = sqlite3.Row
 
     return connection

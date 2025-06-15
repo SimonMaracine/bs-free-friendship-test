@@ -1,5 +1,6 @@
 body {
     background-color: #fafaf5 !important;
+    font-family: "Funnel Sans", sans-serif !important;
 }
 
 header {
@@ -23,6 +24,10 @@ footer {
     text-align: center;
     color: #626262;
     margin-bottom: 2rem;
+}
+
+h1 {
+    font-family: "DynaPuff", system-ui;
 }
 
 .hyper-link {
