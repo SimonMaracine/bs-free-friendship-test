@@ -33,10 +33,40 @@ footer {
     color: #000000;
 }
 
+.no-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.no-link:hover {
+    color: inherit;
+}
+
 #error-messages {
     margin-top: 2rem;
     margin-bottom: 2rem;
     color: crimson;
+}
+
+#index-bottom {
+    color: #626262;
+    font-size: 0.95rem;
+}
+
+#disclaimer {
+    font-style: italic;
+}
+
+#definition .bold {
+    font-weight: bold;
+}
+
+#definition .faded {
+    color: #929292;
+}
+
+#definition .mono {
+    font-family: monospace;
 }
 
 #question-type {
