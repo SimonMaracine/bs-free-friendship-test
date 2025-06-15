@@ -5,7 +5,7 @@ body {
 header {
     text-align: center;
     color: #ffffff;
-    margin-top: 1rem;
+    margin-top: 2rem;
     padding: 0.5rem;
     background-color: salmon;
     border-radius: 1rem;
@@ -14,15 +14,15 @@ header {
 main {
     text-align: center;
     color: #424242;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 }
 
 footer {
     font-size: 0.75rem;
     text-align: center;
     color: #626262;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 
 .hyper-link {

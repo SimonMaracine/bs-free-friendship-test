@@ -35,6 +35,10 @@ def create_app():
     def index():
         return fl.render_template("index.html")
 
+    @application.route("/information")
+    def information():
+        return fl.render_template("information.html")
+
     return application
 
 
@@ -63,6 +67,6 @@ def _delete_old_quizes(application: fl.Flask):
 
     with database.open_database_ex(application) as db:
         try:
-            common.delete_quizes_older_than(db, 24)
+            common.delete_quizes_older_than(db, 48)
         except database.DatabaseError:
             pass
