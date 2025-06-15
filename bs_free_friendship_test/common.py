@@ -22,7 +22,7 @@ def get_form_answers(form) -> tuple[int, list[str]]:
 
 
 def create_new_quiz(creator_name: str) -> str:
-    db = database.get_database()
+    db = database.open_database()
 
     new_id = create_new_id()
     new_public_id = create_new_id()
@@ -31,7 +31,8 @@ def create_new_quiz(creator_name: str) -> str:
 
     try:
         db.execute(
-            "INSERT INTO Quiz (Id, PublicId, CreatorName, ShuffledQuestionIndices, CurrentQuestionIndex) VALUES (?, ?, ?, ?, ?)",
+            "INSERT INTO Quiz (Id, PublicId, CreatorName, ShuffledQuestionIndices, CurrentQuestionIndex, CreationTimeStamp) "
+            "VALUES (?, ?, ?, ?, ?, UNIXEPOCH())",
             (new_id, new_public_id, creator_name, ",".join(question_indices), 0)
         )
         db.commit()
@@ -42,7 +43,7 @@ def create_new_quiz(creator_name: str) -> str:
 
 
 def create_new_completed_quiz(friend_name: str, quiz_id: str) -> str:
-    db = database.get_database()
+    db = database.open_database()
 
     new_id = create_new_id()
 
@@ -59,7 +60,7 @@ def create_new_completed_quiz(friend_name: str, quiz_id: str) -> str:
 
 
 def get_quiz_id_from_public_id(public_quiz_id: str) -> str:
-    db = database.get_database()
+    db = database.open_database()
 
     try:
         result = db.execute("SELECT Id FROM Quiz WHERE PublicId = ?", (public_quiz_id,)).fetchone()
@@ -73,7 +74,7 @@ def get_quiz_id_from_public_id(public_quiz_id: str) -> str:
 
 
 def get_quiz_data(quiz_id: str) -> tuple[str, str, list[int], int]:
-    db = database.get_database()
+    db = database.open_database()
 
     try:
         result = db.execute("SELECT * FROM Quiz WHERE Id = ?", (quiz_id,)).fetchone()
@@ -87,7 +88,7 @@ def get_quiz_data(quiz_id: str) -> tuple[str, str, list[int], int]:
 
 
 def get_completed_quiz_data(completed_quiz_id: str) -> tuple[str, int, str]:
-    db = database.get_database()
+    db = database.open_database()
 
     try:
         result = db.execute("SELECT * FROM CompletedQuiz WHERE Id = ?", (completed_quiz_id,)).fetchone()
@@ -101,7 +102,7 @@ def get_completed_quiz_data(completed_quiz_id: str) -> tuple[str, int, str]:
 
 
 def get_quiz_question_count(quiz_id: str) -> int:
-    db = database.get_database()
+    db = database.open_database()
 
     try:
         result = db.execute(
@@ -119,7 +120,7 @@ def get_quiz_question_count(quiz_id: str) -> int:
 
 
 def get_completed_quiz_question_count(completed_quiz_id: str) -> int:
-    db = database.get_database()
+    db = database.open_database()
 
     try:
         result = db.execute(
@@ -137,7 +138,7 @@ def get_completed_quiz_question_count(completed_quiz_id: str) -> int:
 
 
 def get_quiz_question_answer_indices(quiz_id: str) -> list[int]:
-    db = database.get_database()
+    db = database.open_database()
 
     try:
         result = db.execute(
@@ -155,7 +156,7 @@ def get_quiz_question_answer_indices(quiz_id: str) -> list[int]:
 
 
 def get_completed_quiz_question_answer_indices(completed_quiz_id: str) -> list[int]:
-    db = database.get_database()
+    db = database.open_database()
 
     try:
         result = db.execute(
@@ -173,7 +174,7 @@ def get_completed_quiz_question_answer_indices(completed_quiz_id: str) -> list[i
 
 
 def get_quiz_question_answers(quiz_id: str) -> list[tuple[int, list[int]]]:
-    db = database.get_database()
+    db = database.open_database()
 
     try:
         result = db.execute(
@@ -191,7 +192,7 @@ def get_quiz_question_answers(quiz_id: str) -> list[tuple[int, list[int]]]:
 
 
 def get_completed_quiz_question_answers(completed_quiz_id: str) -> list[tuple[int, list[int]]]:
-    db = database.get_database()
+    db = database.open_database()
 
     try:
         result = db.execute(
@@ -209,7 +210,7 @@ def get_completed_quiz_question_answers(completed_quiz_id: str) -> list[tuple[in
 
 
 def add_quiz_question_answer(quiz_id: str, question_index: int, answer_indices: list[str]):
-    db = database.get_database()
+    db = database.open_database()
 
     try:
         result = db.execute(
@@ -223,7 +224,7 @@ def add_quiz_question_answer(quiz_id: str, question_index: int, answer_indices: 
 
 
 def add_completed_quiz_question_answer(completed_quiz_id: str, question_index: int, answer_indices: list[str]):
-    db = database.get_database()
+    db = database.open_database()
 
     try:
         result = db.execute(
@@ -274,7 +275,7 @@ def next_completed_quiz_question(completed_quiz_id: str):
 
 
 def _update_quiz_current_question_index(quiz_id: str, current_question_index: int):
-    db = database.get_database()
+    db = database.open_database()
 
     try:
         db.execute("UPDATE Quiz SET CurrentQuestionIndex = ? WHERE Id = ?", (current_question_index, quiz_id))
@@ -284,7 +285,7 @@ def _update_quiz_current_question_index(quiz_id: str, current_question_index: in
 
 
 def _update_completed_quiz_current_question_index(completed_quiz_id: str, current_question_index: int):
-    db = database.get_database()
+    db = database.open_database()
 
     try:
         db.execute("UPDATE CompletedQuiz SET CurrentQuestionIndex = ? WHERE Id = ?", (current_question_index, completed_quiz_id))
@@ -342,7 +343,7 @@ def _get_quiz_question_score(completed_quiz_question_answer: tuple[int, list[int
 
 
 def get_quiz_completed_quizes(quiz_id: str) -> list[tuple[str, str]]:
-    db = database.get_database()
+    db = database.open_database()
 
     try:
         result = db.execute(
@@ -359,3 +360,11 @@ def get_quiz_completed_quizes(quiz_id: str) -> list[tuple[str, str]]:
         raise database.DatabaseError(f"Could not find entity with id {quiz_id}")
 
     return list(map(lambda x: (x[0], x[1]), result))
+
+
+def delete_quizes_older_than(db: database.sqlite3.Connection, hours: int):
+    try:
+        db.execute("DELETE FROM Quiz WHERE CreationTimeStamp - UNIXEPOCH() > ?", (hours * 3600,))
+        db.commit()
+    except db.Error as err:
+        raise database.DatabaseError(f"Could not delete from table: {err}")

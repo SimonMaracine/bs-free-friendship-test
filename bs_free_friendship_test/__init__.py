@@ -1,7 +1,9 @@
 import os
 import sys
+import atexit
 
 import flask as fl
+import apscheduler.schedulers.background
 
 
 def create_app():
@@ -21,6 +23,7 @@ def create_app():
         print(f"Error configuration file: {err}", file=sys.stderr)
 
     _initialize_application(application)
+    _setup_delete_scheduler(application)  # In debug mode, this will run twice
 
     # Ensure the instance directory is available
     os.makedirs(application.instance_path, exist_ok=True)
@@ -45,3 +48,21 @@ def _initialize_application(application: fl.Flask):
     application.cli.add_command(commands.command_initialize_database)
     application.register_blueprint(create.g_blueprint)
     application.register_blueprint(quiz.g_blueprint)
+
+
+def _setup_delete_scheduler(application: fl.Flask):
+    scheduler = apscheduler.schedulers.background.BackgroundScheduler()
+    scheduler.add_job(lambda: _delete_old_quizes(application), trigger="interval", seconds=1800)
+    scheduler.start()
+    atexit.register(lambda: scheduler.shutdown())
+
+
+def _delete_old_quizes(application: fl.Flask):
+    from . import database
+    from . import common
+
+    with database.open_database_ex(application) as db:
+        try:
+            common.delete_quizes_older_than(db, 24)
+        except database.DatabaseError:
+            pass
