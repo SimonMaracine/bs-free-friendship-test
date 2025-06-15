@@ -3,6 +3,10 @@
 {% block additional_head %}{% endblock %}
 
 {% block content %}
-    <p>Quiz made by: {{ creator_name }}</p>
+    <p>
+        Done! You've completed the quiz made by <span class="mono">{{ creator_name }}</span>.
+        They will see your score as <span class="mono">{{ friend_name }}</span>.
+    </p>
     <p>Your score is {{ quiz_score }}/100!</p>
+    <p><a class="hyper-link" href="/create/start">Quiz your friend back</a>!</p>
 {% endblock %}

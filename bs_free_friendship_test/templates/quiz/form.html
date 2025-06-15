@@ -5,10 +5,10 @@
 {% block content %}
     <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-12">
-            <p>Quiz made by: {{ creator_name }}</p>
+            <p>Quiz made by: <span class="mono">{{ creator_name }}</span></p>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-12">
-            <p>Your name: {{ friend_name }}</p>
+            <p>Your name: <span class="mono">{{ friend_name }}</span></p>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-12">
             <p id="question-type">{{ 'Select one choice' if question.single_type else 'Select multiple choices' }}</p>
@@ -35,7 +35,7 @@
         </div>
 
         <input type="hidden" name="question_index" value="{{ question_index }}">
-        <input type="submit" value="Submit Answer">
-        <input type="submit" value="Skip Question For Now" formaction="{{ completed_quiz_id }}/skip">
+        <input class="input-button" type="submit" value="Submit Answer">
+        <input class="input-button" type="submit" value="Skip Question For Now" formaction="{{ completed_quiz_id }}/skip">
     </form>
 {% endblock %}

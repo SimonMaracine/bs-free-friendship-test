@@ -3,14 +3,14 @@
 {% block additional_head %}{% endblock %}
 
 {% block content %}
-    <p>Quiz made by: {{ creator_name }}</p>
+    <p><span class="mono">{{ creator_name }}</span> made a quiz and wants you to take it. Go ahead, it's just for fun!</p>
 
     <form method="post">
         <label for="friend_name">Your name:</label>
-        <input type="text" name="friend_name">
+        <input class="input-text" type="text" name="friend_name">
         <br>
         <br>
 
-        <input type="submit" value="Start Quiz">
+        <input class="input-button" type="submit" value="Start Quiz">
     </form>
 {% endblock %}

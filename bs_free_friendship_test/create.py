@@ -77,6 +77,7 @@ def _done(quiz_id):
     results: list[tuple[str, int]] = []
 
     try:
+        creator_name, _, _ = common.get_quiz_data(quiz_id)
         quiz_completed_quizes = common.get_quiz_completed_quizes(quiz_id)
 
         for quiz in quiz_completed_quizes:
@@ -86,4 +87,4 @@ def _done(quiz_id):
         fl.flash(str(err))
         return fl.redirect(fl.url_for("create._start"))
 
-    return fl.render_template("create/done.html", quiz_id=quiz_id, results=results)
+    return fl.render_template("create/done.html", creator_name=creator_name, quiz_id=quiz_id, results=results)

@@ -19,7 +19,7 @@ main {
 }
 
 footer {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     text-align: center;
     color: #626262;
     margin-bottom: 1rem;
@@ -42,6 +42,14 @@ footer {
     color: inherit;
 }
 
+.input-button {
+    color: #424242;
+}
+
+.input-text {
+    color: #424242;
+}
+
 #error-messages {
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -50,22 +58,22 @@ footer {
 
 #index-bottom {
     color: #626262;
-    font-size: 0.95rem;
+    font-size: 0.92rem;
 }
 
 #disclaimer {
     font-style: italic;
 }
 
-#definition .bold {
+.bold {
     font-weight: bold;
 }
 
-#definition .faded {
+.faded {
     color: #929292;
 }
 
-#definition .mono {
+.mono {
     font-family: monospace;
 }
 
@@ -102,5 +110,7 @@ footer {
 
 table, th, td {
     border: 1px solid;
+    border-color: #626262;
     padding: 0.6rem;
 }
+

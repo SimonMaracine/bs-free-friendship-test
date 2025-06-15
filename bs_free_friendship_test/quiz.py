@@ -94,11 +94,11 @@ def _form_skip(completed_quiz_id):
 @g_blueprint.route("/done/<completed_quiz_id>")
 def _done(completed_quiz_id):
     try:
-        _, _, quiz_id = common.get_completed_quiz_data(completed_quiz_id)
+        friend_name, _, quiz_id = common.get_completed_quiz_data(completed_quiz_id)
         creator_name, _, _ = common.get_quiz_data(quiz_id)
         quiz_score = common.get_quiz_score(completed_quiz_id)
     except database.DatabaseError as err:
         fl.flash(str(err))
         return fl.redirect(fl.url_for("create._start", _method="GET"))
 
-    return fl.render_template("quiz/done.html", creator_name=creator_name, quiz_score=int(quiz_score))
+    return fl.render_template("quiz/done.html", creator_name=creator_name, friend_name=friend_name, quiz_score=int(quiz_score))
