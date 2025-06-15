@@ -50,10 +50,28 @@ footer {
     color: #424242;
 }
 
+.form-submit-button {
+    margin-bottom: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.button {
+    border: 1px solid;
+    border-radius: 0.5rem;
+    border-color: #929292;
+    padding: 0.4rem;
+}
+
 #error-messages {
     margin-top: 2rem;
     margin-bottom: 2rem;
     color: crimson;
+}
+
+#main-content {
+    padding: 2rem;
+    background-color: #eaeae5;
+    border-radius: 1rem;
 }
 
 #index-bottom {
@@ -82,7 +100,7 @@ footer {
 }
 
 #question {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     font-weight: bold;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -113,4 +131,3 @@ table, th, td {
     border-color: #626262;
     padding: 0.6rem;
 }
-
