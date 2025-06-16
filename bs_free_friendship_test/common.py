@@ -1,13 +1,29 @@
 import uuid
 import random
+from typing import Any
 
 from . import database
 from . import static
 
 
-def valid_name(name: str) -> bool:  # FIXME validate data in database
-    stripped_name = name.strip()
-    return 0 < len(stripped_name) <= 20
+def _error_select(message: Any) -> database.DatabaseError:
+    return database.DatabaseError(f"Could not select from table: {message}")
+
+
+def _error_insert(message: Any) -> database.DatabaseError:
+    return database.DatabaseError(f"Could not insert into table: {message}")
+
+
+def _error_update(message: Any) -> database.DatabaseError:
+    return database.DatabaseError(f"Could not update table: {message}")
+
+
+def _error_delete(message: Any) -> database.DatabaseError:
+    return database.DatabaseError(f"Could not delete from table: {message}")
+
+
+def _error_find_entity(id_: Any) -> database.DatabaseError:
+    return database.DatabaseError(f"Could not find entity with ID {id_}")
 
 
 def create_new_id() -> str:
@@ -19,6 +35,10 @@ def get_form_answers(form) -> tuple[int, list[str]]:
     answers = [str(static.G_QUESTIONS[question_index].answers.index(value)) for (key, value) in form.items() if key.startswith("question_answer")]
 
     return question_index, answers
+
+
+def redirect_to_create_start(fl):
+    return fl.redirect(fl.url_for("create._start", _method="GET"))
 
 
 def create_new_quiz(creator_name: str) -> str:
@@ -37,7 +57,7 @@ def create_new_quiz(creator_name: str) -> str:
         )
         db.commit()
     except db.Error as err:
-        raise database.DatabaseError(f"Could not insert into table: {err}")
+        raise _error_insert(err)
 
     return new_id
 
@@ -54,7 +74,7 @@ def create_new_completed_quiz(friend_name: str, quiz_id: str) -> str:
         )
         db.commit()
     except db.Error as err:
-        raise database.DatabaseError(f"Could not insert into table: {err}")
+        raise _error_insert(err)
 
     return new_id
 
@@ -65,10 +85,10 @@ def get_quiz_id_from_public_id(public_quiz_id: str) -> str:
     try:
         result = db.execute("SELECT Id FROM Quiz WHERE PublicId = ?", (public_quiz_id,)).fetchone()
     except db.Error as err:
-        raise database.DatabaseError(f"Could not select from table: {err}")
+        raise _error_select(err)
 
     if result is None:
-        raise database.DatabaseError(f"Could not find entity with id {public_quiz_id}")
+        raise _error_find_entity(public_quiz_id)
 
     return result[0]
 
@@ -79,10 +99,10 @@ def get_quiz_data(quiz_id: str) -> tuple[str, str, list[int], int]:
     try:
         result = db.execute("SELECT * FROM Quiz WHERE Id = ?", (quiz_id,)).fetchone()
     except db.Error as err:
-        raise database.DatabaseError(f"Could not select from table: {err}")
+        raise _error_select(err)
 
     if result is None:
-        raise database.DatabaseError(f"Could not find entity with id {quiz_id}")
+        raise _error_find_entity(quiz_id)
 
     return result["PublicId"], result["CreatorName"], list(map(int, result["ShuffledQuestionIndices"].split(","))), result["CurrentQuestionIndex"]
 
@@ -93,10 +113,10 @@ def get_completed_quiz_data(completed_quiz_id: str) -> tuple[str, int, str]:
     try:
         result = db.execute("SELECT * FROM CompletedQuiz WHERE Id = ?", (completed_quiz_id,)).fetchone()
     except db.Error as err:
-        raise database.DatabaseError(f"Could not select from table: {err}")
+        raise _error_select(err)
 
     if result is None:
-        raise database.DatabaseError(f"Could not find entity with id {completed_quiz_id}")
+        raise _error_find_entity(completed_quiz_id)
 
     return result["FriendName"], result["CurrentQuestionIndex"], result["QuizId"]
 
@@ -111,10 +131,10 @@ def get_quiz_question_count(quiz_id: str) -> int:
             (quiz_id,)
         ).fetchone()
     except db.Error as err:
-        raise database.DatabaseError(f"Could not select from table: {err}")
+        raise _error_select(err)
 
     if result is None:
-        raise database.DatabaseError(f"Could not find entity with id {quiz_id}")
+        raise _error_find_entity(quiz_id)
 
     return result[0]
 
@@ -129,10 +149,10 @@ def get_completed_quiz_question_count(completed_quiz_id: str) -> int:
             (completed_quiz_id,)
         ).fetchone()
     except db.Error as err:
-        raise database.DatabaseError(f"Could not select from table: {err}")
+        raise _error_select(err)
 
     if result is None:
-        raise database.DatabaseError(f"Could not find entity with id {completed_quiz_id}")
+        raise _error_find_entity(completed_quiz_id)
 
     return result[0]
 
@@ -147,10 +167,10 @@ def get_quiz_question_answer_indices(quiz_id: str) -> list[int]:
             (quiz_id,)
         ).fetchall()
     except db.Error as err:
-        raise database.DatabaseError(f"Could not select from table: {err}")
+        raise _error_select(err)
 
     if result is None:
-        raise database.DatabaseError(f"Could not find entity with id {quiz_id}")
+        raise _error_find_entity(quiz_id)
 
     return list(map(lambda x: x[0], result))
 
@@ -165,10 +185,10 @@ def get_completed_quiz_question_answer_indices(completed_quiz_id: str) -> list[i
             (completed_quiz_id,)
         ).fetchall()
     except db.Error as err:
-        raise database.DatabaseError(f"Could not select from table: {err}")
+        raise _error_select(err)
 
     if result is None:
-        raise database.DatabaseError(f"Could not find entity with id {completed_quiz_id}")
+        raise _error_find_entity(completed_quiz_id)
 
     return list(map(lambda x: x[0], result))
 
@@ -183,10 +203,10 @@ def get_quiz_question_answers(quiz_id: str) -> list[tuple[int, list[int]]]:
             (quiz_id,)
         ).fetchall()
     except db.Error as err:
-        raise database.DatabaseError(f"Could not select from table: {err}")
+        raise _error_select(err)
 
     if result is None:
-        raise database.DatabaseError(f"Could not find entity with id {quiz_id}")
+        raise _error_find_entity(quiz_id)
 
     return list(map(lambda x: (x[0], list(map(int, x[1].split(",")))), result))
 
@@ -201,10 +221,10 @@ def get_completed_quiz_question_answers(completed_quiz_id: str) -> list[tuple[in
             (completed_quiz_id,)
         ).fetchall()
     except db.Error as err:
-        raise database.DatabaseError(f"Could not select from table: {err}")
+        raise _error_select(err)
 
     if result is None:
-        raise database.DatabaseError(f"Could not find entity with id {completed_quiz_id}")
+        raise _error_find_entity(completed_quiz_id)
 
     return list(map(lambda x: (x[0], list(map(int, x[1].split(",")))), result))
 
@@ -220,7 +240,7 @@ def add_quiz_question_answer(quiz_id: str, question_index: int, answer_indices: 
         db.execute("INSERT INTO QuizQuestionAnswer (QuizId, QuestionAnswerId) VALUES (?, ?)", (quiz_id, result[0]))
         db.commit()
     except db.Error as err:
-        raise database.DatabaseError(f"Could not insert into table: {err}")
+        raise _error_insert(err)
 
 
 def add_completed_quiz_question_answer(completed_quiz_id: str, question_index: int, answer_indices: list[str]):
@@ -234,7 +254,7 @@ def add_completed_quiz_question_answer(completed_quiz_id: str, question_index: i
         db.execute("INSERT INTO CompletedQuizQuestionAnswer (CompletedQuizId, QuestionAnswerId) VALUES (?, ?)", (completed_quiz_id, result[0]))
         db.commit()
     except db.Error as err:
-        raise database.DatabaseError(f"Could not insert into table: {err}")
+        raise _error_insert(err)
 
 
 def next_quiz_question(quiz_id: str):
@@ -281,7 +301,7 @@ def _update_quiz_current_question_index(quiz_id: str, current_question_index: in
         db.execute("UPDATE Quiz SET CurrentQuestionIndex = ? WHERE Id = ?", (current_question_index, quiz_id))
         db.commit()
     except db.Error as err:
-        raise database.DatabaseError(f"Could not update table: {err}")
+        raise _error_update(err)
 
 
 def _update_completed_quiz_current_question_index(completed_quiz_id: str, current_question_index: int):
@@ -291,7 +311,7 @@ def _update_completed_quiz_current_question_index(completed_quiz_id: str, curren
         db.execute("UPDATE CompletedQuiz SET CurrentQuestionIndex = ? WHERE Id = ?", (current_question_index, completed_quiz_id))
         db.commit()
     except db.Error as err:
-        raise database.DatabaseError(f"Could not update table: {err}")
+        raise _error_update(err)
 
 
 def get_quiz_score(completed_quiz_id: str) -> float:
@@ -354,10 +374,10 @@ def get_quiz_completed_quizes(quiz_id: str) -> list[tuple[str, str]]:
             (quiz_id,)
         ).fetchall()
     except db.Error as err:
-        raise database.DatabaseError(f"Could not select from table: {err}")
+        raise _error_select(err)
 
     if result is None:
-        raise database.DatabaseError(f"Could not find entity with id {quiz_id}")
+        raise _error_find_entity(quiz_id)
 
     return list(map(lambda x: (x[0], x[1]), result))
 
@@ -367,4 +387,4 @@ def delete_quizes_older_than(db: database.sqlite3.Connection, hours: int):
         db.execute("DELETE FROM Quiz WHERE UNIXEPOCH() - CreationTimeStamp > ?", (hours * 3600,))
         db.commit()
     except db.Error as err:
-        raise database.DatabaseError(f"Could not delete from table: {err}")
+        raise _error_delete(err)

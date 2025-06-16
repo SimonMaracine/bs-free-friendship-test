@@ -3,12 +3,19 @@ DROP TABLE IF EXISTS CompletedQuiz;
 DROP TABLE IF EXISTS QuestionAnswer;
 DROP TABLE IF EXISTS QuizQuestionAnswer;
 DROP TABLE IF EXISTS CompletedQuizQuestionAnswer;
+
 DROP TRIGGER IF EXISTS AvoidDuplicateQuestionAnswers;
 DROP TRIGGER IF EXISTS AvoidDuplicateCompletedQuestionAnswers;
-DROP TRIGGER IF EXISTS DeleteQuizDependencies;
-DROP TRIGGER IF EXISTS DeleteCompletedQuizDependencies;
-DROP TRIGGER IF EXISTS DeleteQuizQuestionAnswerDependencies;
-DROP TRIGGER IF EXISTS DeleteCompletedQuizQuestionAnswerDependencies;
+
+DROP TRIGGER IF EXISTS DeleteQuiz;
+DROP TRIGGER IF EXISTS DeleteCompletedQuiz;
+DROP TRIGGER IF EXISTS DeleteQuizQuestionAnswer;
+DROP TRIGGER IF EXISTS DeleteCompletedQuizQuestionAnswer;
+
+DROP TRIGGER IF EXISTS SanitizeQuizInsert;
+DROP TRIGGER IF EXISTS ValidateQuizInsert;
+DROP TRIGGER IF EXISTS SanitizeCompletedQuizInsert;
+DROP TRIGGER IF EXISTS ValidateCompletedQuizInsert;
 
 CREATE TABLE Quiz (
     Id TEXT NOT NULL PRIMARY KEY,
@@ -78,23 +85,49 @@ BEGIN
     END;
 END;
 
-CREATE TRIGGER IF NOT EXISTS DeleteQuizDependencies BEFORE DELETE ON Quiz
+CREATE TRIGGER IF NOT EXISTS DeleteQuiz BEFORE DELETE ON Quiz
 BEGIN
     DELETE FROM QuizQuestionAnswer WHERE QuizId = OLD.Id;
     DELETE FROM CompletedQuiz WHERE QuizId = OLD.Id;
 END;
 
-CREATE TRIGGER IF NOT EXISTS DeleteCompletedQuizDependencies BEFORE DELETE ON CompletedQuiz
+CREATE TRIGGER IF NOT EXISTS DeleteCompletedQuiz BEFORE DELETE ON CompletedQuiz
 BEGIN
     DELETE FROM CompletedQuizQuestionAnswer WHERE CompletedQuizId = OLD.Id;
 END;
 
-CREATE TRIGGER IF NOT EXISTS DeleteQuizQuestionAnswerDependencies BEFORE DELETE ON QuizQuestionAnswer
+CREATE TRIGGER IF NOT EXISTS DeleteQuizQuestionAnswer BEFORE DELETE ON QuizQuestionAnswer
 BEGIN
     DELETE FROM QuestionAnswer WHERE Id = OLD.QuestionAnswerId;
 END;
 
-CREATE TRIGGER IF NOT EXISTS DeleteCompletedQuizQuestionAnswerDependencies BEFORE DELETE ON CompletedQuizQuestionAnswer
+CREATE TRIGGER IF NOT EXISTS DeleteCompletedQuizQuestionAnswer BEFORE DELETE ON CompletedQuizQuestionAnswer
 BEGIN
     DELETE FROM QuestionAnswer WHERE Id = OLD.QuestionAnswerId;
+END;
+
+CREATE TRIGGER IF NOT EXISTS SanitizeQuizInsert AFTER INSERT ON Quiz
+BEGIN
+    UPDATE Quiz SET CreatorName = TRIM(NEW.CreatorName) WHERE Id = NEW.Id;
+END;
+
+CREATE TRIGGER IF NOT EXISTS ValidateQuizInsert BEFORE INSERT ON Quiz
+BEGIN
+    SELECT CASE
+        WHEN LENGTH(TRIM(NEW.CreatorName)) NOT BETWEEN 1 AND 18
+        THEN RAISE(ABORT, "Invalid name")
+    END;
+END;
+
+CREATE TRIGGER IF NOT EXISTS SanitizeCompletedQuizInsert AFTER INSERT ON CompletedQuiz
+BEGIN
+    UPDATE CompletedQuiz SET FriendName = TRIM(NEW.FriendName) WHERE Id = NEW.Id;
+END;
+
+CREATE TRIGGER IF NOT EXISTS ValidateCompletedQuizInsert BEFORE INSERT ON CompletedQuiz
+BEGIN
+    SELECT CASE
+        WHEN LENGTH(TRIM(NEW.FriendName)) NOT BETWEEN 1 AND 18
+        THEN RAISE(ABORT, "Invalid name")
+    END;
 END;

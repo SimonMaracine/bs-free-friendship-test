@@ -20,7 +20,7 @@
 
     <p id="question">{{ question.question_quiz }}</p>
 
-    <form method="post">
+    <form method="post" autocomplete="off">
         <div id="answers">
             {% for answer in question.answers %}
                 <div id="answer">

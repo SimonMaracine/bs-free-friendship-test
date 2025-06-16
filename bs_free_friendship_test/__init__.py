@@ -1,5 +1,4 @@
 import os
-import sys
 import atexit
 
 import flask as fl
@@ -17,10 +16,8 @@ def create_app():
     )
 
     # Apply some more configuration from the file
-    try:
-        application.config.from_pyfile("configuration.py")
-    except Exception as err:
-        print(f"Error configuration file: {err}", file=sys.stderr)
+    if application.config.from_pyfile("configuration.py", True):
+        application.logger.info("Using configuration file")
 
     _initialize_application(application)
     _setup_delete_scheduler(application)  # In debug mode, this will run twice
@@ -30,6 +27,8 @@ def create_app():
 
     with application.open_resource("questions.json") as file:
         static.G_QUESTIONS = question.load_questions(file)
+
+    application.logger.info(f"Questions: {len(static.G_QUESTIONS)}")
 
     @application.route("/")
     def index():
@@ -68,5 +67,5 @@ def _delete_old_quizes(application: fl.Flask):
     with database.open_database_ex(application) as db:
         try:
             common.delete_quizes_older_than(db, 48)
-        except database.DatabaseError:
-            pass
+        except database.DatabaseError as err:
+            application.logger.error(f"Error deleting quizes: {err}")

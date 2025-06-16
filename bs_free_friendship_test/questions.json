@@ -431,8 +431,8 @@
         ]
     },
     {
-        "question": "What social media platform do you use daily?",
-        "question_quiz": "What social media platform does your friend use daily?",
+        "question": "What social media platforms do you use daily?",
+        "question_quiz": "What social media platforms does your friend use daily?",
         "single_type": false,
         "answers": [
             "Facebook",
