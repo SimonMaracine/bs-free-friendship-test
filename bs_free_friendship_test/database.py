@@ -4,7 +4,9 @@ import flask as fl
 
 
 class DatabaseError(Exception):
-    pass
+    def __init__(self, error_code: int | None, *args: object):
+        super().__init__(*args)
+        self.error_code = error_code
 
 
 def open_database_ex(application: fl.Flask) -> sqlite3.Connection:
@@ -31,8 +33,10 @@ def initialize_database(application: fl.Flask):
         with fl.current_app.open_resource("schema.sql") as file:
             try:
                 db.executescript(file.read().decode("utf8"))
+            except db.Error as err:
+                raise DatabaseError(err.sqlite_errorcode, f"Could not execute script: {err}")
             except Exception as err:
-                raise DatabaseError(f"Could not execute script: {err}")
+                raise DatabaseError(None, f"Could not execute script: {err}")
 
 
 def _create_connection(database_path: str) -> sqlite3.Connection:

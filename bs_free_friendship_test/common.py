@@ -6,24 +6,24 @@ from . import database
 from . import static
 
 
-def _error_select(message: Any) -> database.DatabaseError:
-    return database.DatabaseError(f"Could not select from table: {message}")
+def _error_select(err: database.sqlite3.Error) -> database.DatabaseError:
+    return database.DatabaseError(err.sqlite_errorcode, f"Could not select from table: {err}")
 
 
-def _error_insert(message: Any) -> database.DatabaseError:
-    return database.DatabaseError(f"Could not insert into table: {message}")
+def _error_insert(err: database.sqlite3.Error) -> database.DatabaseError:
+    return database.DatabaseError(err.sqlite_errorcode, f"Could not insert into table: {err}")
 
 
-def _error_update(message: Any) -> database.DatabaseError:
-    return database.DatabaseError(f"Could not update table: {message}")
+def _error_update(err: database.sqlite3.Error) -> database.DatabaseError:
+    return database.DatabaseError(err.sqlite_errorcode, f"Could not update table: {err}")
 
 
-def _error_delete(message: Any) -> database.DatabaseError:
-    return database.DatabaseError(f"Could not delete from table: {message}")
+def _error_delete(err: database.sqlite3.Error) -> database.DatabaseError:
+    return database.DatabaseError(err.sqlite_errorcode, f"Could not delete from table: {err}")
 
 
 def _error_find_entity(id_: Any) -> database.DatabaseError:
-    return database.DatabaseError(f"Could not find entity with ID {id_}")
+    return database.DatabaseError(None, f"Could not find entity with ID {id_}")
 
 
 def create_new_id() -> str:

@@ -17,6 +17,9 @@ def _start():
             quiz_id = common.create_new_quiz(creator_name)
         except database.DatabaseError as err:
             fl.flash(str(err))
+
+            if err.error_code != database.sqlite3.SQLITE_CONSTRAINT_TRIGGER:
+                common.redirect_to_create_start(fl)
         else:
             return fl.redirect(fl.url_for("create._form", _method="GET", quiz_id=quiz_id))
 
@@ -33,14 +36,12 @@ def _form(quiz_id):
         else:
             try:
                 common.add_quiz_question_answer(quiz_id, question_index, answers)
-            except database.DatabaseError as err:
-                fl.flash(str(err))
-
-            try:
                 common.next_quiz_question(quiz_id)
             except database.DatabaseError as err:
                 fl.flash(str(err))
-                return common.redirect_to_create_start(fl)
+
+                if err.error_code != database.sqlite3.SQLITE_CONSTRAINT_TRIGGER:
+                    common.redirect_to_create_start(fl)
 
     try:
         _, creator_name, shuffled_question_indices, current_question_index = common.get_quiz_data(quiz_id)

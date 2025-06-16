@@ -23,6 +23,9 @@ def _start(public_quiz_id):
             completed_quiz_id = common.create_new_completed_quiz(friend_name, quiz_id)
         except database.DatabaseError as err:
             fl.flash(str(err))
+
+            if err.error_code != database.sqlite3.SQLITE_CONSTRAINT_TRIGGER:
+                common.redirect_to_create_start(fl)
         else:
             return fl.redirect(fl.url_for("quiz._form", _method="GET", completed_quiz_id=completed_quiz_id))
 
@@ -51,14 +54,12 @@ def _form(completed_quiz_id):
         else:
             try:
                 common.add_completed_quiz_question_answer(completed_quiz_id, question_index, answers)
-            except database.DatabaseError as err:
-                fl.flash(str(err))
-
-            try:
                 common.next_completed_quiz_question(completed_quiz_id)
             except database.DatabaseError as err:
                 fl.flash(str(err))
-                return common.redirect_to_create_start(fl)
+
+                if err.error_code != database.sqlite3.SQLITE_CONSTRAINT_TRIGGER:
+                    common.redirect_to_create_start(fl)
 
     try:
         friend_name, current_question_index, quiz_id = common.get_completed_quiz_data(completed_quiz_id)
