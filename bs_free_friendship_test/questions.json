@@ -209,8 +209,8 @@
         ]
     },
     {
-        "question": "What seasons do you like?",
-        "question_quiz": "What seasons does your friend like?",
+        "question": "Which seasons do you like?",
+        "question_quiz": "Which seasons does your friend like?",
         "single_type": false,
         "answers": [
             "Spring",
@@ -236,10 +236,11 @@
         "question_quiz": "Which operating system does your friend use the most on the computer?",
         "single_type": true,
         "answers": [
-            "BSD",
-            "Linux",
-            "macOS",
             "Windows",
+            "macOS",
+            "Linux",
+            "BSD",
+            "Chrome OS",
             "(Other operating system)"
         ]
     },
@@ -249,7 +250,6 @@
         "single_type": true,
         "answers": [
             "PlayStation",
-            "Xbox",
             "Xbox",
             "Nintendo",
             "Steam (Deck)",
