@@ -20,7 +20,7 @@ DROP TRIGGER IF EXISTS ValidateCompletedQuizInsert;
 CREATE TABLE Quiz (
     Id TEXT NOT NULL PRIMARY KEY,
     PublicId TEXT NOT NULL UNIQUE,  -- Not primary key
-    CreatorName TEXT NOT NULL CHECK (LENGTH(CreatorName) BETWEEN 1 AND 18),
+    CreatorName TEXT NOT NULL CHECK (LENGTH(TRIM(CreatorName)) BETWEEN 1 AND 18),
     ShuffledQuestionIndices TEXT NOT NULL CHECK (ShuffledQuestionIndices REGEXP "^[0-9]+(,[0-9]+)*$"),  -- Comma separated list of indices
     CurrentQuestionIndex INTEGER NOT NULL CHECK (CurrentQuestionIndex >= 0),  -- Index in the shuffled list
     CreationTimeStamp INTEGER NOT NULL
@@ -28,7 +28,7 @@ CREATE TABLE Quiz (
 
 CREATE TABLE CompletedQuiz (
     Id TEXT NOT NULL PRIMARY KEY,
-    FriendName TEXT NOT NULL CHECK (LENGTH(FriendName) BETWEEN 1 AND 18),
+    FriendName TEXT NOT NULL CHECK (LENGTH(TRIM(FriendName)) BETWEEN 1 AND 18),
     CurrentQuestionIndex INTEGER NOT NULL CHECK (CurrentQuestionIndex BETWEEN 0 AND 20 - 1),  -- Index in the list (20)
     QuizId TEXT NOT NULL,
 
