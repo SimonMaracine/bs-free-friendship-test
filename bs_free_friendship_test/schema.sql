@@ -19,17 +19,17 @@ DROP TRIGGER IF EXISTS ValidateCompletedQuizInsert;
 
 CREATE TABLE Quiz (
     Id TEXT NOT NULL PRIMARY KEY,
-    PublicId TEXT NOT NULL,  -- Not primary key
-    CreatorName TEXT NOT NULL,
-    ShuffledQuestionIndices TEXT NOT NULL,  -- Comma separated list of indices (20)
-    CurrentQuestionIndex INTEGER NOT NULL,  -- Index in the shuffled list (20)
+    PublicId TEXT NOT NULL UNIQUE,  -- Not primary key
+    CreatorName TEXT NOT NULL CHECK (LENGTH(CreatorName) BETWEEN 1 AND 18),
+    ShuffledQuestionIndices TEXT NOT NULL CHECK (ShuffledQuestionIndices REGEXP "^[0-9]+(,[0-9]+)*$"),  -- Comma separated list of indices
+    CurrentQuestionIndex INTEGER NOT NULL CHECK (CurrentQuestionIndex >= 0),  -- Index in the shuffled list
     CreationTimeStamp INTEGER NOT NULL
 );
 
 CREATE TABLE CompletedQuiz (
     Id TEXT NOT NULL PRIMARY KEY,
-    FriendName TEXT NOT NULL,
-    CurrentQuestionIndex INTEGER NOT NULL,  -- Index in the list (20)
+    FriendName TEXT NOT NULL CHECK (LENGTH(FriendName) BETWEEN 1 AND 18),
+    CurrentQuestionIndex INTEGER NOT NULL CHECK (CurrentQuestionIndex BETWEEN 0 AND 20 - 1),  -- Index in the list (20)
     QuizId TEXT NOT NULL,
 
     FOREIGN KEY (QuizId) REFERENCES Quiz (Id)
@@ -37,8 +37,8 @@ CREATE TABLE CompletedQuiz (
 
 CREATE TABLE QuestionAnswer (
     Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    QuestionIndex INTEGER NOT NULL,
-    AnswerIndices TEXT NOT NULL  -- Comma separated list of indices
+    QuestionIndex INTEGER NOT NULL CHECK (QuestionIndex >= 0),
+    AnswerIndices TEXT NOT NULL CHECK (AnswerIndices REGEXP "^[0-9]+(,[0-9]+)*$")  -- Comma separated list of indices
 );
 
 CREATE TABLE QuizQuestionAnswer (
