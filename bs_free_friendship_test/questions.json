@@ -571,5 +571,28 @@
             "Yes",
             "No"
         ]
+    },
+    {
+        "question": "Besides instant text messaging do you use social media platforms?",
+        "question_quiz": "Besides instant text messaging does your friend use social media platforms?",
+        "single_type": true,
+        "answers": [
+            "Not at all",
+            "Yes, but rarely or very few",
+            "Yes, often or quite a few",
+            "Yes, the internet is the real life"
+        ]
+    },
+    {
+        "question": "Did you like being in school?",
+        "question_quiz": "Did your friend like being in school?",
+        "single_type": true,
+        "answers": [
+            "No, school was the worst",
+            "No, but it wasn't that bad",
+            "Yes, but it wasn't that great",
+            "Yes, school was the best",
+            "Meh"
+        ]
     }
 ]
