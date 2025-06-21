@@ -23,7 +23,7 @@ echo "-- Installing dependencies..."
 
 echo "-- Configuring and initializing database..."
 mkdir ../instance
-echo "SECRET_KEY = $KEY" >> ../instance/configuration.py
+echo "SECRET_KEY = '$KEY'" >> ../instance/configuration.py
 ./initialize_database.sh
 
 echo "-- Done."
