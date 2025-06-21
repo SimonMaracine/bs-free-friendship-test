@@ -7,9 +7,9 @@ header {
     text-align: center;
     color: #ffffff;
     margin-top: 2rem;
-    padding: 0.5rem;
+    padding: 1rem;
     background-color: salmon;
-    border-radius: 1rem;
+    border-radius: 1.5rem;
 }
 
 main {
@@ -76,7 +76,7 @@ h1 {
 #main-content {
     padding: 2rem;
     background-color: #eaeae5;
-    border-radius: 1rem;
+    border-radius: 1.5rem;
 }
 
 #index-bottom {
