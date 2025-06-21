@@ -3,6 +3,7 @@ import atexit
 
 import flask as fl
 import apscheduler.schedulers.background
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 
 def create_app():
@@ -37,6 +38,8 @@ def create_app():
     @application.route("/information")
     def information():
         return fl.render_template("information.html")
+
+    application.wsgi_app = ProxyFix(application.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
     return application
 
